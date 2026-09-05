@@ -54,12 +54,131 @@
 .sos-button span { display: grid; gap: 2px; }
 .sos-button strong { text-transform: uppercase; font-size: 18px; }
 .sos-button small { font-size: 13px; opacity: .88; }
+
+/* Circular SOS Button & Ripples */
+.sos-circular-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0 16px;
+  width: 100%;
+}
+.sos-ripple {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(220, 38, 38, 0.45);
+  animation: sos-ripple-pulse 2.4s infinite cubic-bezier(0.2, 0.8, 0.4, 1);
+  pointer-events: none;
+}
+.sos-ripple--1 {
+  width: 210px;
+  height: 210px;
+  animation-delay: 0s;
+}
+.sos-ripple--2 {
+  width: 250px;
+  height: 250px;
+  animation-delay: 0.8s;
+}
+.sos-button--circular {
+  position: relative;
+  z-index: 2;
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  background: radial-gradient(circle at 35% 35%, #ef4444 0%, #dc2626 50%, #991b1b 100%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 0 35px rgba(220, 38, 38, 0.5), inset 0 2px 6px rgba(255, 255, 255, 0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.sos-button--circular:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 45px rgba(220, 38, 38, 0.7), inset 0 2px 8px rgba(255, 255, 255, 0.5);
+}
+.sos-button--circular:active {
+  transform: scale(0.96);
+}
+.sos-button--circular strong {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  line-height: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+.sos-button--circular small {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.92;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+@keyframes sos-ripple-pulse {
+  0% { transform: scale(0.75); opacity: 0.85; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
 .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .choice-grid button { min-height: 52px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-2); color: var(--fg); display: flex; align-items: center; gap: 9px; text-align: left; font-size: 13px; font-weight: 700; cursor: pointer; }
 .choice-grid button:hover { border-color: var(--brand); background: var(--brand-soft); }
-.mobile-nav { position: fixed; z-index: 18; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translateX(-50%); width: min(calc(100% - 32px), 560px); padding: 7px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; border: 1px solid var(--border); border-radius: 14px; background: color-mix(in srgb, var(--surface) 92%, transparent); box-shadow: var(--shadow-md); backdrop-filter: blur(16px); }
-.mobile-nav a { min-height: 52px; display: flex; align-items: center; justify-content: center; gap: 7px; border-radius: var(--radius-md); color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 700; }
-.mobile-nav a.is-active { color: var(--brand-strong); background: var(--brand-soft); }
+
+.mobile-nav {
+  position: fixed;
+  z-index: 18;
+  left: 50%;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(calc(100% - 24px), 680px);
+  padding: 6px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 5px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(16px);
+}
+.mobile-nav a {
+  min-height: 48px;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: var(--radius-md);
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.mobile-nav a.is-active {
+  color: var(--brand-strong);
+  background: var(--brand-soft);
+}
+@media (max-width: 480px) {
+  .mobile-nav {
+    width: calc(100% - 16px);
+    padding: 5px 4px;
+    gap: 3px;
+  }
+  .mobile-nav a {
+    min-height: 44px;
+    padding: 4px 5px;
+    font-size: 10.5px;
+    gap: 4px;
+  }
+}
 .passport-top { display: grid; grid-template-columns: 126px 1fr; align-items: center; gap: 20px; }
 .qr-placeholder { aspect-ratio: 1; display: grid; place-items: center; border: 10px solid var(--fg-strong); border-radius: var(--radius-md); color: var(--fg-strong); }
 .passport-top h2 { margin: 12px 0 2px; font-size: 20px; }
@@ -631,4 +750,383 @@
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.85); }
 }
+
+/* ==========================================================================
+   Relief Camps Navigable Map & Interactive Selection
+   ========================================================================== */
+.camps-map-card {
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.camps-map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.camps-map-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--fg-strong);
+}
+
+.camps-map-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.camps-ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.camps-ctrl-btn:hover {
+  background: var(--surface-3);
+  color: var(--fg-strong);
+  border-color: var(--border-strong);
+}
+
+.camps-map-viewport {
+  position: relative;
+  height: 290px;
+  width: 100%;
+  background: #111827;
+}
+
+.camps-map-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.camps-map-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.camps-map-legend {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f1f5f9;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.camps-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-swatch--user {
+  background: #38bdf8;
+  box-shadow: 0 0 6px #38bdf8;
+}
+
+.legend-swatch--safe {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.legend-swatch--hazard {
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+}
+
+/* Map Markers */
+.camps-user-pin {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.camps-pin-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #0284c7;
+  border: 2.5px solid #ffffff;
+  box-shadow: 0 0 8px rgba(2, 132, 199, 0.8);
+  z-index: 2;
+}
+
+.camps-pin-pulse {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(2, 132, 199, 0.4);
+  animation: camps-pulse 1.8s infinite ease-out;
+}
+
+@keyframes camps-pulse {
+  0% { transform: scale(0.5); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.camps-pin-label {
+  position: absolute;
+  top: -20px;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 800;
+  background: #0284c7;
+  color: #ffffff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.camps-marker {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(4px);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+}
+
+.camps-marker:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: #38bdf8;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+}
+
+.camps-marker--active {
+  background: var(--brand);
+  border-color: #ffffff;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 0 16px var(--brand-soft);
+}
+
+.camps-badge-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.camps-badge-text {
+  max-width: 105px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Camps List Component in Evacuation Page */
+.camps-list {
+  display: grid;
+  gap: 10px;
+}
+
+.camp-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.camp-list-item:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-3);
+}
+
+.camp-list-item--active {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.camp-list-info {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.camp-list-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.camp-list-title-row strong {
+  font-size: 14px;
+  color: var(--fg-strong);
+}
+
+.camp-list-details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.camp-list-details span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.camp-list-capacity-bar {
+  height: 5px;
+  border-radius: 99px;
+  background: var(--surface-3);
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.camp-list-capacity-fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.3s ease;
+}
+
+.camp-list-action {
+  flex-shrink: 0;
+}
+
+.camp-select-pill {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+
+.camp-select-pill--active {
+  color: white;
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+/* ==========================================================================
+   Silence Map Focus Beacon & ADU Interactive Cards
+   ========================================================================== */
+.silence-focus-beacon {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.silence-beacon-core {
+  font-size: 22px;
+  z-index: 2;
+  filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.9));
+  animation: beacon-bounce 0.8s ease-in-out infinite alternate;
+}
+
+.silence-beacon-pulse {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.45);
+  border: 2px solid #ef4444;
+  animation: beacon-ripple 1.4s infinite ease-out;
+}
+
+@keyframes beacon-bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-7px); }
+}
+
+@keyframes beacon-ripple {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.silence-beacon-label {
+  position: absolute;
+  top: -26px;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 800;
+  background: #dc2626;
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  z-index: 3;
+}
+
+.dtn-adu-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  border-color: var(--brand) !important;
+}
+
+
 

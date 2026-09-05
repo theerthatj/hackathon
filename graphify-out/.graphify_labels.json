@@ -1,5 +1,5 @@
 {
-  "0": "FieldPages.tsx",
+  "0": "CivilianPages.tsx",
   "1": "devDependencies",
   "2": "CommandPage.tsx",
   "3": "compilerOptions",
@@ -23,5 +23,7 @@
   "21": "generate_dataset.py",
   "22": "Tables",
   "23": "generate_geo_silence.py",
-  "24": "DtnStore"
+  "24": "DtnStore",
+  "25": "SAHAYAM (സഹായം)",
+  "26": "Scenarios: Testing Silence Detection"
 }

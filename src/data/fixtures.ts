@@ -2,10 +2,56 @@ import geoData from './geographicSilenceData.json'
 
 export type Severity = 'safe' | 'watch' | 'warning' | 'critical' | 'info'
 
-export const camps = [
-  { name: 'St. Thomas HSS', distance: '2.1 km', capacity: 72, status: 'Open', elevation: '38 m' },
-  { name: 'Govt. College Kalpetta', distance: '4.8 km', capacity: 46, status: 'Open', elevation: '52 m' },
-  { name: 'Community Hall Meppadi', distance: '6.2 km', capacity: 91, status: 'Near capacity', elevation: '31 m' },
+export type Camp = {
+  id: string
+  name: string
+  distance: string
+  capacity: number
+  status: string
+  elevation: string
+  coordinates: [number, number]
+  routeDescription: string
+  safetyNote: string
+  estimatedTime: string
+}
+
+export const camps: Camp[] = [
+  {
+    id: 'camp-st-thomas',
+    name: 'St. Thomas HSS',
+    distance: '2.1 km',
+    capacity: 72,
+    status: 'Open',
+    elevation: '+38 m',
+    coordinates: [76.1265, 11.5542],
+    routeDescription: 'Kalpetta–Meppadi High Ridge Road',
+    safetyNote: 'Avoids Chooralmala river bridge debris. Elevation is +38m above flash flood warning line.',
+    estimatedTime: '18 min',
+  },
+  {
+    id: 'camp-govt-college',
+    name: 'Govt. College Kalpetta',
+    distance: '4.8 km',
+    capacity: 46,
+    status: 'Open',
+    elevation: '+52 m',
+    coordinates: [76.0830, 11.6080],
+    routeDescription: 'Meppadi Bypass – Kalpetta Hill Road',
+    safetyNote: 'High capacity staging area with medical triage center and emergency airlift access.',
+    estimatedTime: '35 min',
+  },
+  {
+    id: 'camp-community-hall',
+    name: 'Community Hall Meppadi',
+    distance: '6.2 km',
+    capacity: 91,
+    status: 'Near capacity',
+    elevation: '+31 m',
+    coordinates: [76.1220, 11.5501],
+    routeDescription: 'Old Plantation Road via Vythiri Link',
+    safetyNote: 'Secondary relief depot. High occupancy; primary supplies prioritizing vulnerable families.',
+    estimatedTime: '45 min',
+  },
 ]
 
 export const registry = [

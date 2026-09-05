@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { Map as MapLibreMap, NavigationControl, Popup, setWorkerUrl, type ExpressionSpecification } from 'maplibre-gl'
+import { Map as MapLibreMap, NavigationControl, Popup, Marker, setWorkerUrl, type ExpressionSpecification } from 'maplibre-gl'
 import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { geographicSilenceData, type SilenceCell, type SilentZone } from '../data/fixtures'
@@ -48,11 +48,20 @@ interface SilenceMapProps {
   selectedId: string
   onSelect: (cell: SilenceCell) => void
   activeScenario?: string
+  focusNonce?: number
+  focusTargetName?: string
 }
 
-export function SilenceMap({ selectedId, onSelect, activeScenario = 'severe_silence' }: SilenceMapProps) {
+export function SilenceMap({
+  selectedId,
+  onSelect,
+  activeScenario = 'severe_silence',
+  focusNonce = 0,
+  focusTargetName,
+}: SilenceMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
+  const sosMarkerRef = useRef<Marker | null>(null)
   const onSelectRef = useRef(onSelect)
   const initialSelectedId = useRef(selectedId)
   const [status, setStatus] = useState<MapStatus>('loading')
@@ -382,18 +391,63 @@ export function SilenceMap({ selectedId, onSelect, activeScenario = 'severe_sile
     mapRef.current = map
 
     return () => {
+      if (sosMarkerRef.current) {
+        sosMarkerRef.current.remove()
+        sosMarkerRef.current = null
+      }
       map.remove()
       mapRef.current = null
     }
   }, [])
 
-  // Update selected cell highlight filter
+  // Update selected cell highlight filter and fly camera to selected cell
   useEffect(() => {
     const map = mapRef.current
-    if (map?.getLayer('silence-selected')) {
+    if (!map || status !== 'ready') return
+
+    if (map.getLayer('silence-selected')) {
       map.setFilter('silence-selected', ['==', ['get', 'id'], selectedId])
     }
-  }, [selectedId])
+
+    const cell = geoData.cells.find((c: any) => c.id === selectedId || c.cell_code === selectedId)
+    if (cell && typeof cell.longitude === 'number' && typeof cell.latitude === 'number') {
+      map.flyTo({
+        center: [cell.longitude, cell.latitude],
+        zoom: 14.5,
+        pitch: 25,
+        speed: 1.5,
+        curve: 1.2,
+        essential: true,
+      })
+
+      // Add high-visibility pulsing distress beacon
+      if (sosMarkerRef.current) {
+        sosMarkerRef.current.remove()
+        sosMarkerRef.current = null
+      }
+
+      if (focusNonce > 0 || focusTargetName) {
+        const pinEl = document.createElement('div')
+        pinEl.className = 'silence-focus-beacon'
+        pinEl.innerHTML = `
+          <div class="silence-beacon-pulse"></div>
+          <div class="silence-beacon-core">🚨</div>
+          <div class="silence-beacon-label">${focusTargetName ? focusTargetName.split(' ')[0] : cell.place} (${cell.id})</div>
+        `
+        const marker = new Marker({ element: pinEl })
+          .setLngLat([cell.longitude, cell.latitude])
+          .addTo(map)
+        sosMarkerRef.current = marker
+
+        setTimeout(() => {
+          if (sosMarkerRef.current === marker) {
+            marker.remove()
+            sosMarkerRef.current = null
+          }
+        }, 15000)
+      }
+    }
+  }, [selectedId, status, focusNonce, focusTargetName])
 
   // Update GeoJSON sources when active scenario changes
   useEffect(() => {
@@ -451,7 +505,7 @@ export function SilenceMap({ selectedId, onSelect, activeScenario = 'severe_sile
   }
 
   return (
-    <div className="silence-map-wrap">
+    <div id="silence-map-container" className="silence-map-wrap">
       {/* Interactive Map Header Controls */}
       <div className="silence-map-controls" role="toolbar" aria-label="Map display controls">
         <div className="control-group">

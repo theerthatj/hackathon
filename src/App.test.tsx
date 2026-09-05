@@ -20,6 +20,14 @@ describe('Sahayam routes', () => {
     expect(screen.getByText('Ammini K.')).toBeInTheDocument()
   })
 
+  it('renders the safe evacuation route with navigable camps map', () => {
+    renderRoute('/civilian/route')
+    expect(screen.getByRole('heading', { name: 'Safe Evacuation Route' })).toBeInTheDocument()
+    expect(screen.getAllByText('St. Thomas HSS').length).toBeGreaterThan(0)
+    expect(screen.getByText('Govt. College Kalpetta')).toBeInTheDocument()
+    expect(screen.getByText('Community Hall Meppadi')).toBeInTheDocument()
+  })
+
   it('renders the command center with uncertainty context', async () => {
     renderRoute('/command')
     expect(await screen.findByRole('heading', { name: 'Operational overview' })).toBeInTheDocument()

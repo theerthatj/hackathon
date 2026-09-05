@@ -10,8 +10,8 @@
     "semantic_hash": ""
   },
   "src/App.test.tsx": {
-    "mtime": 1788630895.6470258,
-    "ast_hash": "9bf14a01401a0a5477fd3f989aadc78f",
+    "mtime": 1788643889.5023167,
+    "ast_hash": "c2c764e94d04e44031da2117a3dc3985",
     "semantic_hash": ""
   },
   "src/App.tsx": {
@@ -25,8 +25,8 @@
     "semantic_hash": ""
   },
   "src/components/SilenceMap.tsx": {
-    "mtime": 1788637497.1887856,
-    "ast_hash": "9eea221297f0d851c2603937bc2c73c1",
+    "mtime": 1788644480.6169434,
+    "ast_hash": "841a44ae0af52927edeb0d95765684cf",
     "semantic_hash": ""
   },
   "src/components/ui.tsx": {
@@ -35,8 +35,8 @@
     "semantic_hash": ""
   },
   "src/data/fixtures.ts": {
-    "mtime": 1788637321.2761118,
-    "ast_hash": "9e941dc985c870618050a8e980a54dce",
+    "mtime": 1788643801.2220848,
+    "ast_hash": "67c68bd04f5d0d1e2edf794c02f6d6aa",
     "semantic_hash": ""
   },
   "src/main.tsx": {
@@ -45,23 +45,23 @@
     "semantic_hash": "4e75475fac4606127e753771a6023414"
   },
   "src/pages/CivilianPages.tsx": {
-    "mtime": 1788639654.8540907,
-    "ast_hash": "1ef432a6670d888e16a893a45f515fc3",
+    "mtime": 1788643910.2033718,
+    "ast_hash": "3e3a98e98b8bfa319f8d662c3c35c980",
     "semantic_hash": ""
   },
   "src/pages/CommandPage.tsx": {
-    "mtime": 1788639568.9272592,
-    "ast_hash": "06b20dfcef3fe2194e349ba417cd0077",
+    "mtime": 1788644501.398002,
+    "ast_hash": "b997457a1ad8d10f0e7f9cb7f0d3b868",
     "semantic_hash": ""
   },
   "src/pages/FieldPages.tsx": {
-    "mtime": 1788639491.3265212,
-    "ast_hash": "efecdb427068c7678dc5da932c1ec1ca",
+    "mtime": 1788643622.154629,
+    "ast_hash": "47fba28f02871b1e23c605a35342ca87",
     "semantic_hash": ""
   },
   "src/pages/HomePage.tsx": {
-    "mtime": 1788639518.5344164,
-    "ast_hash": "bc64747bf5e5becb8fa5ca1f12cd48a7",
+    "mtime": 1788643600.730576,
+    "ast_hash": "0614934fed81137038f0a3bd9009017c",
     "semantic_hash": ""
   },
   "src/test-setup.ts": {
@@ -184,11 +184,6 @@
     "ast_hash": "dbc3ce427afb2ba1107f8c0d17b5971d",
     "semantic_hash": ""
   },
-  "Bluetooth_Low_Energy_for_Close_Detection_in_Search.pdf": {
-    "mtime": 1788636356.9230146,
-    "ast_hash": "e0a7b5b0fd0476b26bc09a21a4f236b4",
-    "semantic_hash": ""
-  },
   "src/data/dtn.test.ts": {
     "mtime": 1788639706.474043,
     "ast_hash": "ef2460b77f1c3caf48d77958142900bf",
@@ -197,6 +192,16 @@
   "src/data/dtn.ts": {
     "mtime": 1788639646.4481022,
     "ast_hash": "200f982cdf35b6b59746f2a17d536553",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1788641012.3839505,
+    "ast_hash": "42d11b5179b1b8d899c566f6901183bd",
+    "semantic_hash": ""
+  },
+  "src/components/CampsMap.tsx": {
+    "mtime": 1788643826.999152,
+    "ast_hash": "d3d60fa9636021614aa2dd890a749512",
     "semantic_hash": ""
   }
 }

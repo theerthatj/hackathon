@@ -8,9 +8,9 @@ import { useDtnMesh, type ADUBundle } from '../data/dtn'
 
 const nav = [
   { to: '/field/scanner', label: '1. Scan QR', icon: QrCode },
-  { to: '/field/member', label: '2. Add Member to House', icon: UserPlus },
-  { to: '/field/registry', label: '3. Household Registry', icon: Users },
-  { to: '/field/dtn-relay', label: '4. DDD SOS Relay', icon: Radio },
+  { to: '/field/member', label: '2. Add Member', icon: UserPlus },
+  { to: '/field/registry', label: '3. Registry', icon: Users },
+  { to: '/field/dtn-relay', label: '4. SOS Relay', icon: Radio },
 ]
 
 function FieldLayout({ title, children }: { title: string; children: React.ReactNode }) {

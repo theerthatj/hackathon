@@ -3,7 +3,8 @@ import { AlertTriangle, ArrowRight, CheckCircle2, Clock3, Download, HeartPulse, 
 import { NavLink } from 'react-router-dom'
 import { AppShell } from '../components/AppShell'
 import { Button, Panel, StatusBadge } from '../components/ui'
-import { camps } from '../data/fixtures'
+import { camps, type Camp } from '../data/fixtures'
+import { CampsMap } from '../components/CampsMap'
 import { useSahayamStore, type UserMember } from '../data/store'
 
 const nav = [
@@ -311,13 +312,23 @@ export function SosPage() {
           </div>
         </div>
       ) : (
-        <button className="sos-button" onClick={handleTriggerSos} disabled={isSubmitting}>
-          <Siren size={32} />
-          <span>
-            <strong>{isSubmitting ? 'Encapsulating ADU…' : 'Trigger Emergency SOS'}</strong>
-            <small>Sends your GPS location and medical passport via offline DDD mesh</small>
-          </span>
-        </button>
+        <div className="sos-circular-container">
+          <div className="sos-ripple sos-ripple--1" />
+          <div className="sos-ripple sos-ripple--2" />
+          <button
+            className="sos-button--circular"
+            onClick={handleTriggerSos}
+            disabled={isSubmitting}
+            aria-label="Trigger Emergency SOS"
+          >
+            <Siren size={44} />
+            <strong>SOS</strong>
+            <small>{isSubmitting ? 'Transmitting…' : 'Trigger SOS'}</small>
+          </button>
+          <p style={{ marginTop: '14px', fontSize: '12px', color: 'var(--muted)', textAlign: 'center' }}>
+            Tap the button to broadcast your GPS coordinate and medical passport to nearby rescue nodes
+          </p>
+        </div>
       )}
 
       <Panel title="What kind of help do you need?" className="section-card">
@@ -340,54 +351,113 @@ export function SosPage() {
           ))}
         </div>
       </Panel>
-
-      <div className="notice notice--info">
-        <Shield size={18} />
-        <div>
-          <strong>Offline Delay-Tolerant Transmission (DDD) Active</strong>
-          <span>
-            Even if cell towers are offline, your SOS is packed into an encrypted Application Data Unit (ADU) and automatically transferred via peer-to-peer Wi-Fi Direct when a volunteer or transport node passes within 10–20 meters.
-          </span>
-        </div>
-      </div>
     </CivilianLayout>
   )
 }
 
 export function RoutePage() {
-  const camp = camps[0]
-  return (
-    <CivilianLayout title="Evacuation Route">
-      <div className="route-map" role="img" aria-label="Map preview showing safe route to St. Thomas HSS">
-        <span className="map-label map-label--start">You</span>
-        <div className="route-line" />
-        <span className="map-label map-label--end">Camp</span>
-        <span className="map-road">Kalpetta–Meppadi High Ridge Road</span>
-      </div>
+  const [selectedCamp, setSelectedCamp] = useState<Camp>(camps[0])
+  const [navigating, setNavigating] = useState(false)
 
-      <Panel eyebrow="Hazard-Aware Recommended Destination" title={camp.name}>
+  return (
+    <CivilianLayout title="Safe Evacuation Route">
+      {/* Navigable Map with Relief Camps and Route */}
+      <CampsMap selectedCamp={selectedCamp} onSelectCamp={setSelectedCamp} />
+
+      {/* Selected Camp Destination Panel */}
+      <Panel eyebrow="Hazard-Aware Recommended Destination" title={selectedCamp.name}>
         <div className="camp-meta">
-          <span><MapPin size={16} />{camp.distance}</span>
-          <span><Users size={16} />{camp.capacity}% occupied</span>
-          <span><CheckCircle2 size={16} />{camp.status}</span>
+          <span><MapPin size={16} />{selectedCamp.distance}</span>
+          <span><Users size={16} />{selectedCamp.capacity}% occupied</span>
+          <span><CheckCircle2 size={16} />{selectedCamp.status}</span>
         </div>
         <div className="capacity">
-          <span style={{ width: `${camp.capacity}%` }} />
+          <span
+            style={{
+              width: `${selectedCamp.capacity}%`,
+              background: selectedCamp.capacity > 85 ? 'var(--critical)' : selectedCamp.capacity > 65 ? 'var(--warning)' : 'var(--safe)',
+            }}
+          />
         </div>
         <p className="reason">
           <Shield size={17} />
-          Avoids Chooralmala river bridge debris. Elevation is +38m above flash flood warning line.
+          {selectedCamp.safetyNote} Elevation is {selectedCamp.elevation} above flash flood line.
         </p>
       </Panel>
 
       <div className="route-summary">
-        <span><Clock3 size={17} /><strong>18 min</strong> estimated</span>
-        <span><Navigation size={17} /><strong>2.1 km</strong> distance</span>
+        <span><Clock3 size={17} /><strong>{selectedCamp.estimatedTime}</strong> estimated</span>
+        <span><Navigation size={17} /><strong>{selectedCamp.distance}</strong> distance</span>
       </div>
 
-      <Button block icon={<ArrowRight size={18} />}>
-        Start Offline Navigation
-      </Button>
-    </CivilianLayout>
-  )
+      {navigating ? (
+        <div className="notice notice--safe" style={{ marginTop: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <CheckCircle2 size={20} color="var(--safe)" />
+            <div>
+              <strong>Offline GPS Guidance Active</strong>
+              <span style={{ display: 'block', fontSize: '12px', marginTop: '2px' }}>
+                Navigating via {selectedCamp.routeDescription} · Cached topology
+              </span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Button block icon={<ArrowRight size={18} />} onClick={() => setNavigating(true)}>
+          Start Offline Navigation to {selectedCamp.name}
+        </Button>
+      )}
+
+      {/* Interactive List of Nearby Camps */}
+      <div style={{ marginTop: '16px' }}>
+        <Panel title="Nearby Relief Camps" eyebrow="Select Destination" className="section-card">
+        <div className="camps-list">
+          {camps.map(camp => {
+            const isSelected = camp.id === selectedCamp.id
+            return (
+              <div
+                key={camp.id}
+                className={`camp-list-item ${isSelected ? 'camp-list-item--active' : ''}`}
+                onClick={() => {
+                  setSelectedCamp(camp)
+                  setNavigating(false)
+                }}
+                role="button"
+                tabIndex={0}
+              >
+                <div className="camp-list-info">
+                  <div className="camp-list-title-row">
+                    <strong>{camp.name}</strong>
+                    <StatusBadge severity={camp.capacity > 85 ? 'warning' : 'safe'}>
+                      {camp.status}
+                    </StatusBadge>
+                  </div>
+                  <div className="camp-list-details">
+                    <span><MapPin size={12} /> {camp.distance}</span>
+                    <span><Clock3 size={12} /> {camp.estimatedTime}</span>
+                    <span>{camp.elevation}</span>
+                  </div>
+                  <div className="camp-list-capacity-bar">
+                    <div
+                      className="camp-list-capacity-fill"
+                      style={{
+                        width: `${camp.capacity}%`,
+                        backgroundColor: camp.capacity > 85 ? 'var(--critical)' : camp.capacity > 65 ? 'var(--warning)' : 'var(--safe)',
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="camp-list-action">
+                  <span className={`camp-select-pill ${isSelected ? 'camp-select-pill--active' : ''}`}>
+                    {isSelected ? 'Active' : 'Select'}
+                  </span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </Panel>
+    </div>
+  </CivilianLayout>
+)
 }

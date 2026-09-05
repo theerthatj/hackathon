@@ -920,7 +920,7 @@
       "_origin": "ast",
       "id": "src_app_test",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "app.test.tsx"
     },
     {
@@ -932,7 +932,7 @@
       "_origin": "ast",
       "id": "src_app_test_renderroute",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "renderroute()"
     },
     {
@@ -943,7 +943,7 @@
       "_origin": "ast",
       "id": "src_app",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "app.tsx"
     },
     {
@@ -954,7 +954,7 @@
       "_origin": "ast",
       "id": "src_app_commandpage",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "commandpage"
     },
     {
@@ -966,7 +966,7 @@
       "_origin": "ast",
       "id": "src_app_app",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "app()"
     },
     {
@@ -977,7 +977,7 @@
       "_origin": "ast",
       "id": "src_components_appshell",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "appshell.tsx"
     },
     {
@@ -989,8 +989,78 @@
       "_origin": "ast",
       "id": "src_components_appshell_appshell",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "appshell()"
+    },
+    {
+      "label": "CampsMap.tsx",
+      "file_type": "code",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_components_campsmap",
+      "community": 2,
+      "community_name": "CommandPage.tsx",
+      "norm_label": "campsmap.tsx"
+    },
+    {
+      "label": "USER_ORIGIN",
+      "file_type": "code",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "src_components_campsmap_user_origin",
+      "community": 2,
+      "community_name": "CommandPage.tsx",
+      "norm_label": "user_origin"
+    },
+    {
+      "label": "TILE_STYLES",
+      "file_type": "code",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "src_components_campsmap_tile_styles",
+      "community": 2,
+      "community_name": "CommandPage.tsx",
+      "norm_label": "tile_styles"
+    },
+    {
+      "label": "getRouteCoordinates()",
+      "file_type": "code",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L26",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "src_components_campsmap_getroutecoordinates",
+      "community": 2,
+      "community_name": "CommandPage.tsx",
+      "norm_label": "getroutecoordinates()"
+    },
+    {
+      "label": "CampsMapProps",
+      "file_type": "code",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L40",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "src_components_campsmap_campsmapprops",
+      "community": 2,
+      "community_name": "CommandPage.tsx",
+      "norm_label": "campsmapprops"
+    },
+    {
+      "label": "CampsMap()",
+      "file_type": "code",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L46",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "src_components_campsmap_campsmap",
+      "community": 2,
+      "community_name": "CommandPage.tsx",
+      "norm_label": "campsmap()"
     },
     {
       "label": "SilenceMap.tsx",
@@ -1081,7 +1151,7 @@
       "label": "SilenceMap()",
       "file_type": "code",
       "source_file": "src/components/SilenceMap.tsx",
-      "source_location": "L53",
+      "source_location": "L55",
       "_callable": true,
       "_origin": "ast",
       "id": "src_components_silencemap_silencemap",
@@ -1097,7 +1167,7 @@
       "_origin": "ast",
       "id": "src_components_ui",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "ui.tsx"
     },
     {
@@ -1110,7 +1180,7 @@
       "_origin": "ast",
       "id": "src_components_ui_buttonprops",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "buttonprops"
     },
     {
@@ -1122,7 +1192,7 @@
       "_origin": "ast",
       "id": "src_components_ui_button",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "button()"
     },
     {
@@ -1134,7 +1204,7 @@
       "_origin": "ast",
       "id": "src_components_ui_statusbadge",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "statusbadge()"
     },
     {
@@ -1146,7 +1216,7 @@
       "_origin": "ast",
       "id": "src_components_ui_connectionstatus",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "connectionstatus()"
     },
     {
@@ -1158,7 +1228,7 @@
       "_origin": "ast",
       "id": "src_components_ui_field",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "field()"
     },
     {
@@ -1170,7 +1240,7 @@
       "_origin": "ast",
       "id": "src_components_ui_selectfield",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "selectfield()"
     },
     {
@@ -1182,7 +1252,7 @@
       "_origin": "ast",
       "id": "src_components_ui_panel",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "panel()"
     },
     {
@@ -1194,7 +1264,7 @@
       "_origin": "ast",
       "id": "src_components_ui_syncqueue",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "syncqueue()"
     },
     {
@@ -1498,21 +1568,34 @@
       "norm_label": "severity"
     },
     {
-      "label": "camps",
+      "label": "Camp",
       "file_type": "code",
       "source_file": "src/data/fixtures.ts",
       "source_location": "L5",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "id": "src_data_fixtures_camp",
+      "community": 2,
+      "community_name": "CommandPage.tsx",
+      "norm_label": "camp"
+    },
+    {
+      "label": "camps",
+      "file_type": "code",
+      "source_file": "src/data/fixtures.ts",
+      "source_location": "L18",
       "_origin": "ast",
       "id": "src_data_fixtures_camps",
-      "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community": 2,
+      "community_name": "CommandPage.tsx",
       "norm_label": "camps"
     },
     {
       "label": "registry",
       "file_type": "code",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L11",
+      "source_location": "L57",
       "_origin": "ast",
       "id": "src_data_fixtures_registry",
       "community": 2,
@@ -1523,7 +1606,7 @@
       "label": "SilentZone",
       "file_type": "code",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L18",
+      "source_location": "L64",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
@@ -1536,7 +1619,7 @@
       "label": "silentZones",
       "file_type": "code",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L30",
+      "source_location": "L76",
       "_origin": "ast",
       "id": "src_data_fixtures_silentzones",
       "community": 2,
@@ -1547,7 +1630,7 @@
       "label": "SignalBreakdownItem",
       "file_type": "code",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L35",
+      "source_location": "L81",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
@@ -1560,7 +1643,7 @@
       "label": "SilenceCell",
       "file_type": "code",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L42",
+      "source_location": "L88",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
@@ -1573,7 +1656,7 @@
       "label": "silenceCells",
       "file_type": "code",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L67",
+      "source_location": "L113",
       "_origin": "ast",
       "id": "src_data_fixtures_silencecells",
       "community": 2,
@@ -1584,7 +1667,7 @@
       "label": "geographicSilenceData",
       "file_type": "code",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L73",
+      "source_location": "L119",
       "_origin": "ast",
       "id": "src_data_fixtures_geographicsilencedata",
       "community": 2,
@@ -1595,7 +1678,7 @@
       "label": "activity",
       "file_type": "code",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L75",
+      "source_location": "L121",
       "_origin": "ast",
       "id": "src_data_fixtures_activity",
       "community": 2,
@@ -1633,7 +1716,7 @@
       "_origin": "ast",
       "id": "src_data_store",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "store.ts"
     },
     {
@@ -1646,7 +1729,7 @@
       "_origin": "ast",
       "id": "src_data_store_role",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "role"
     },
     {
@@ -1659,7 +1742,7 @@
       "_origin": "ast",
       "id": "src_data_store_usermember",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "usermember"
     },
     {
@@ -1672,7 +1755,7 @@
       "_origin": "ast",
       "id": "src_data_store_household",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "household"
     },
     {
@@ -1685,7 +1768,7 @@
       "_origin": "ast",
       "id": "src_data_store_authaccount",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "authaccount"
     },
     {
@@ -1696,7 +1779,7 @@
       "_origin": "ast",
       "id": "src_data_store_initialhouseholds",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "initialhouseholds"
     },
     {
@@ -1706,8 +1789,8 @@
       "source_location": "L182",
       "_origin": "ast",
       "id": "src_data_store_prototype_credentials",
-      "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community": 18,
+      "community_name": "SahayamStore",
       "norm_label": "prototype_credentials"
     },
     {
@@ -1792,7 +1875,7 @@
       "_origin": "ast",
       "id": "src_data_store_sahayamstore_subscribe",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": ".subscribe()"
     },
     {
@@ -1816,7 +1899,7 @@
       "_origin": "ast",
       "id": "src_data_store_sahayamstore_gethouseholds",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": ".gethouseholds()"
     },
     {
@@ -1852,7 +1935,7 @@
       "_origin": "ast",
       "id": "src_data_store_sahayamstore_getallmembers",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": ".getallmembers()"
     },
     {
@@ -1864,7 +1947,7 @@
       "_origin": "ast",
       "id": "src_data_store_sahayamstore_getmemberbyid",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": ".getmemberbyid()"
     },
     {
@@ -1875,8 +1958,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_data_store_sahayamstore_getmemberbyqr",
-      "community": 18,
-      "community_name": "SahayamStore",
+      "community": 0,
+      "community_name": "CivilianPages.tsx",
       "norm_label": ".getmemberbyqr()"
     },
     {
@@ -1912,7 +1995,7 @@
       "_origin": "ast",
       "id": "src_data_store_sahayamstore_getauth",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": ".getauth()"
     },
     {
@@ -1935,8 +2018,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_data_store_sahayamstore_setrole",
-      "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community": 18,
+      "community_name": "SahayamStore",
       "norm_label": ".setrole()"
     },
     {
@@ -1959,7 +2042,7 @@
       "_origin": "ast",
       "id": "src_data_store_store",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "store"
     },
     {
@@ -1971,7 +2054,7 @@
       "_origin": "ast",
       "id": "src_data_store_usesahayamstore",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "usesahayamstore()"
     },
     {
@@ -1982,7 +2065,7 @@
       "_origin": "ast",
       "id": "src_main",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "main.tsx"
     },
     {
@@ -1993,66 +2076,66 @@
       "_origin": "ast",
       "id": "src_pages_civilianpages",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "civilianpages.tsx"
     },
     {
       "label": "nav",
       "file_type": "code",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "_origin": "ast",
       "id": "src_pages_civilianpages_nav",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "nav"
     },
     {
       "label": "CivilianLayout()",
       "file_type": "code",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L15",
+      "source_location": "L16",
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_civilianpages_civilianlayout",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "civilianlayout()"
     },
     {
       "label": "PassportPage()",
       "file_type": "code",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L37",
+      "source_location": "L38",
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_civilianpages_passportpage",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "passportpage()"
     },
     {
       "label": "SosPage()",
       "file_type": "code",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L206",
+      "source_location": "L207",
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_civilianpages_sospage",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "sospage()"
     },
     {
       "label": "RoutePage()",
       "file_type": "code",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L357",
+      "source_location": "L358",
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_civilianpages_routepage",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "routepage()"
     },
     {
@@ -2098,7 +2181,7 @@
       "_origin": "ast",
       "id": "src_pages_fieldpages",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "fieldpages.tsx"
     },
     {
@@ -2109,7 +2192,7 @@
       "_origin": "ast",
       "id": "src_pages_fieldpages_nav",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "nav"
     },
     {
@@ -2121,7 +2204,7 @@
       "_origin": "ast",
       "id": "src_pages_fieldpages_fieldlayout",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "fieldlayout()"
     },
     {
@@ -2132,8 +2215,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_fieldpages_scannerpage",
-      "community": 18,
-      "community_name": "SahayamStore",
+      "community": 0,
+      "community_name": "CivilianPages.tsx",
       "norm_label": "scannerpage()"
     },
     {
@@ -2145,7 +2228,7 @@
       "_origin": "ast",
       "id": "src_pages_fieldpages_addmemberpage",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "addmemberpage()"
     },
     {
@@ -2157,7 +2240,7 @@
       "_origin": "ast",
       "id": "src_pages_fieldpages_registrypage",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "registrypage()"
     },
     {
@@ -2180,7 +2263,7 @@
       "_origin": "ast",
       "id": "src_pages_homepage",
       "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "norm_label": "homepage.tsx"
     },
     {
@@ -2191,8 +2274,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_homepage_homepage",
-      "community": 0,
-      "community_name": "FieldPages.tsx",
+      "community": 18,
+      "community_name": "SahayamStore",
       "norm_label": "homepage()"
     },
     {
@@ -2658,6 +2741,281 @@
       "norm_label": "vitest.config.ts"
     },
     {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "sahayam (\u0d38\u0d39\u0d3e\u0d2f\u0d02)"
+    },
+    {
+      "label": "*Find the people the signal misses.*",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "readme_find_the_people_the_signal_misses",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "*find the people the signal misses.*"
+    },
+    {
+      "label": "\ud83d\udccc The Problem: Rescue Systems Navigate Blind",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "readme_the_problem_rescue_systems_navigate_blind",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\ud83d\udccc the problem: rescue systems navigate blind"
+    },
+    {
+      "label": "The Real Case: Wayanad Landslides (August 2024)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "readme_the_real_case_wayanad_landslides_august_2024",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "the real case: wayanad landslides (august 2024)"
+    },
+    {
+      "label": "\ud83c\udfdb\ufe0f System Architecture",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "readme_system_architecture",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\ud83c\udfdb\ufe0f system architecture"
+    },
+    {
+      "label": "\u26a1 Core Capabilities & Innovation",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "readme_core_capabilities_innovation",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\u26a1 core capabilities & innovation"
+    },
+    {
+      "label": "1. Dark Zone Silence Anomaly Scorer",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L63",
+      "_origin": "ast",
+      "id": "readme_1_dark_zone_silence_anomaly_scorer",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "1. dark zone silence anomaly scorer"
+    },
+    {
+      "label": "2. Disconnected Data Distribution (DDD) Offline Mesh",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L68",
+      "_origin": "ast",
+      "id": "readme_2_disconnected_data_distribution_ddd_offline_mesh",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "2. disconnected data distribution (ddd) offline mesh"
+    },
+    {
+      "label": "3. Digital Household Resilience Passport & QR Triage",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L74",
+      "_origin": "ast",
+      "id": "readme_3_digital_household_resilience_passport_qr_triage",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "3. digital household resilience passport & qr triage"
+    },
+    {
+      "label": "4. Hazard-Aware Evacuation Routing",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L82",
+      "_origin": "ast",
+      "id": "readme_4_hazard_aware_evacuation_routing",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "4. hazard-aware evacuation routing"
+    },
+    {
+      "label": "\ud83d\udcf1 The 3 System Interfaces",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L87",
+      "_origin": "ast",
+      "id": "readme_the_3_system_interfaces",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\ud83d\udcf1 the 3 system interfaces"
+    },
+    {
+      "label": "\ud83d\udd04 Real-Time Multi-Device Demonstration",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L97",
+      "_origin": "ast",
+      "id": "readme_real_time_multi_device_demonstration",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\ud83d\udd04 real-time multi-device demonstration"
+    },
+    {
+      "label": "\ud83d\ude80 Quick Start & Installation",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L110",
+      "_origin": "ast",
+      "id": "readme_quick_start_installation",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\ud83d\ude80 quick start & installation"
+    },
+    {
+      "label": "Prerequisites",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L112",
+      "_origin": "ast",
+      "id": "readme_prerequisites",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "prerequisites"
+    },
+    {
+      "label": "1. Clone & Install Dependencies",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L116",
+      "_origin": "ast",
+      "id": "readme_1_clone_install_dependencies",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "1. clone & install dependencies"
+    },
+    {
+      "label": "2. Start Development Server",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L123",
+      "_origin": "ast",
+      "id": "readme_2_start_development_server",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "2. start development server"
+    },
+    {
+      "label": "3. Testing on Multiple Devices",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L135",
+      "_origin": "ast",
+      "id": "readme_3_testing_on_multiple_devices",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "3. testing on multiple devices"
+    },
+    {
+      "label": "Option A: Connected to Same Wi-Fi / Hotspot",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L137",
+      "_origin": "ast",
+      "id": "readme_option_a_connected_to_same_wi_fi_hotspot",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "option a: connected to same wi-fi / hotspot"
+    },
+    {
+      "label": "Option B: Campus / Hostel Wi-Fi with Client Isolation",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L148",
+      "_origin": "ast",
+      "id": "readme_option_b_campus_hostel_wi_fi_with_client_isolation",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "option b: campus / hostel wi-fi with client isolation"
+    },
+    {
+      "label": "\ud83e\uddea Testing & Validation",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L159",
+      "_origin": "ast",
+      "id": "readme_testing_validation",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\ud83e\uddea testing & validation"
+    },
+    {
+      "label": "\ud83d\udd10 Prototype Test Credentials",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L175",
+      "_origin": "ast",
+      "id": "readme_prototype_test_credentials",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\ud83d\udd10 prototype test credentials"
+    },
+    {
+      "label": "\ud83d\udee0\ufe0f Technology Stack",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L187",
+      "_origin": "ast",
+      "id": "readme_technology_stack",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\ud83d\udee0\ufe0f technology stack"
+    },
+    {
+      "label": "\ud83d\udcda References & Prior Art",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L199",
+      "_origin": "ast",
+      "id": "readme_references_prior_art",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\ud83d\udcda references & prior art"
+    },
+    {
+      "label": "\ud83d\udcc4 License",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L207",
+      "_origin": "ast",
+      "id": "readme_license",
+      "community": 25,
+      "community_name": "SAHAYAM (\u0d38\u0d39\u0d3e\u0d2f\u0d02)",
+      "norm_label": "\ud83d\udcc4 license"
+    },
+    {
       "label": "IMPLEMENTATION_GUIDE.md",
       "file_type": "document",
       "source_file": "dataset/IMPLEMENTATION_GUIDE.md",
@@ -2955,7 +3313,7 @@
       "norm_label": "common pitfalls"
     },
     {
-      "label": "README.md",
+      "label": "dataset/README.md",
       "file_type": "document",
       "source_file": "dataset/README.md",
       "source_location": "L1",
@@ -2963,7 +3321,7 @@
       "id": "dataset_readme",
       "community": 6,
       "community_name": "Sahayam Silence Dataset",
-      "norm_label": "readme.md"
+      "norm_label": "dataset/readme.md"
     },
     {
       "label": "Sahayam Silence Dataset",
@@ -3071,8 +3429,8 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "dataset_readme_scenarios_testing_silence_detection",
-      "community": 6,
-      "community_name": "Sahayam Silence Dataset",
+      "community": 26,
+      "community_name": "Scenarios: Testing Silence Detection",
       "norm_label": "scenarios: testing silence detection"
     },
     {
@@ -3082,8 +3440,8 @@
       "source_location": "L115",
       "_origin": "ast",
       "id": "dataset_readme_scenario_a_normal_operations",
-      "community": 6,
-      "community_name": "Sahayam Silence Dataset",
+      "community": 26,
+      "community_name": "Scenarios: Testing Silence Detection",
       "norm_label": "scenario a: normal operations"
     },
     {
@@ -3093,8 +3451,8 @@
       "source_location": "L122",
       "_origin": "ast",
       "id": "dataset_readme_scenario_b_partial_silence",
-      "community": 6,
-      "community_name": "Sahayam Silence Dataset",
+      "community": 26,
+      "community_name": "Scenarios: Testing Silence Detection",
       "norm_label": "scenario b: partial silence"
     },
     {
@@ -3104,8 +3462,8 @@
       "source_location": "L129",
       "_origin": "ast",
       "id": "dataset_readme_scenario_c_severe_silence",
-      "community": 6,
-      "community_name": "Sahayam Silence Dataset",
+      "community": 26,
+      "community_name": "Scenarios: Testing Silence Detection",
       "norm_label": "scenario c: severe silence"
     },
     {
@@ -3115,8 +3473,8 @@
       "source_location": "L136",
       "_origin": "ast",
       "id": "dataset_readme_scenario_d_complete_silence",
-      "community": 6,
-      "community_name": "Sahayam Silence Dataset",
+      "community": 26,
+      "community_name": "Scenarios: Testing Silence Detection",
       "norm_label": "scenario d: complete silence"
     },
     {
@@ -3126,8 +3484,8 @@
       "source_location": "L143",
       "_origin": "ast",
       "id": "dataset_readme_scenario_e_false_silence_low_baseline",
-      "community": 6,
-      "community_name": "Sahayam Silence Dataset",
+      "community": 26,
+      "community_name": "Scenarios: Testing Silence Detection",
       "norm_label": "scenario e: false silence / low baseline"
     },
     {
@@ -3137,8 +3495,8 @@
       "source_location": "L150",
       "_origin": "ast",
       "id": "dataset_readme_scenario_f_communication_outage",
-      "community": 6,
-      "community_name": "Sahayam Silence Dataset",
+      "community": 26,
+      "community_name": "Scenarios: Testing Silence Detection",
       "norm_label": "scenario f: communication outage"
     },
     {
@@ -3148,8 +3506,8 @@
       "source_location": "L157",
       "_origin": "ast",
       "id": "dataset_readme_scenario_g_network_data_collection_failure",
-      "community": 6,
-      "community_name": "Sahayam Silence Dataset",
+      "community": 26,
+      "community_name": "Scenarios: Testing Silence Detection",
       "norm_label": "scenario g: network/data collection failure"
     },
     {
@@ -3159,8 +3517,8 @@
       "source_location": "L164",
       "_origin": "ast",
       "id": "dataset_readme_scenario_h_increased_activity",
-      "community": 6,
-      "community_name": "Sahayam Silence Dataset",
+      "community": 26,
+      "community_name": "Scenarios: Testing Silence Detection",
       "norm_label": "scenario h: increased activity"
     },
     {
@@ -3170,8 +3528,8 @@
       "source_location": "L171",
       "_origin": "ast",
       "id": "dataset_readme_scenario_i_disaster_progression_extended",
-      "community": 6,
-      "community_name": "Sahayam Silence Dataset",
+      "community": 26,
+      "community_name": "Scenarios: Testing Silence Detection",
       "norm_label": "scenario i: disaster progression (extended)"
     },
     {
@@ -3901,7 +4259,7 @@
       "community": 0,
       "norm_label": "incident command visual design specification",
       "_origin": "semantic",
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "id": "design_visual_specification"
     },
     {
@@ -3973,10 +4331,10 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 18,
+      "community": 0,
       "norm_label": "p2p offline mesh & wi-fi direct relay",
       "_origin": "semantic",
-      "community_name": "SahayamStore",
+      "community_name": "CivilianPages.tsx",
       "id": "sahayam_p2p_mesh"
     },
     {
@@ -3991,7 +4349,7 @@
       "community": 0,
       "norm_label": "store-and-forward local synchronization database",
       "_origin": "semantic",
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "id": "sahayam_store_forward"
     },
     {
@@ -4081,7 +4439,7 @@
       "community": 0,
       "norm_label": "sahayam system plan & architecture blueprint",
       "_origin": "semantic",
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "id": "system_plan_repo_context"
     },
     {
@@ -4096,7 +4454,7 @@
       "community": 0,
       "norm_label": "application html shell & viewport entry",
       "_origin": "semantic",
-      "community_name": "FieldPages.tsx",
+      "community_name": "CivilianPages.tsx",
       "id": "index_html_mount"
     }
   ],
@@ -5571,6 +5929,145 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L46",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_campsmap",
+      "target": "src_components_campsmap_campsmap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_campsmap",
+      "target": "src_components_campsmap_campsmapprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_campsmap",
+      "target": "src_components_campsmap_getroutecoordinates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_campsmap",
+      "target": "src_components_campsmap_tile_styles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_campsmap",
+      "target": "src_components_campsmap_user_origin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_campsmap",
+      "target": "src_data_fixtures",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_campsmap",
+      "target": "src_data_fixtures_camp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_campsmap",
+      "target": "src_data_fixtures_camps",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/CivilianPages.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_civilianpages",
+      "target": "src_components_campsmap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L118",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_campsmap_campsmap",
+      "target": "src_components_campsmap_getroutecoordinates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CampsMap.tsx",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_campsmap_campsmapprops",
+      "target": "src_data_fixtures_camp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/CivilianPages.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_civilianpages",
+      "target": "src_components_campsmap_campsmap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/components/SilenceMap.tsx",
       "source_location": "L45",
       "weight": 1.0,
@@ -5594,7 +6091,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/components/SilenceMap.tsx",
-      "source_location": "L53",
+      "source_location": "L55",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_silencemap",
@@ -6184,7 +6681,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L204",
+      "source_location": "L205",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages",
@@ -6650,10 +7147,22 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L219",
+      "source_location": "L220",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages_sospage",
+      "target": "src_data_dtn_dtnstore_publishsos"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/CommandPage.tsx",
+      "source_location": "L425",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_commandpage_commandpage",
       "target": "src_data_dtn_dtnstore_publishsos"
     },
     {
@@ -6697,7 +7206,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L204",
+      "source_location": "L205",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages",
@@ -6710,7 +7219,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L208",
+      "source_location": "L209",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages_sospage",
@@ -6768,7 +7277,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L75",
+      "source_location": "L121",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_data_fixtures",
@@ -6783,6 +7292,17 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_data_fixtures",
+      "target": "src_data_fixtures_camp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/fixtures.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_data_fixtures",
       "target": "src_data_fixtures_camps",
       "confidence_score": 1.0
     },
@@ -6790,7 +7310,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L73",
+      "source_location": "L119",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_data_fixtures",
@@ -6801,7 +7321,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L11",
+      "source_location": "L57",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_data_fixtures",
@@ -6823,7 +7343,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L35",
+      "source_location": "L81",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_data_fixtures",
@@ -6834,7 +7354,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L42",
+      "source_location": "L88",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_data_fixtures",
@@ -6845,7 +7365,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L67",
+      "source_location": "L113",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_data_fixtures",
@@ -6856,7 +7376,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L18",
+      "source_location": "L64",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_data_fixtures",
@@ -6867,7 +7387,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/data/fixtures.ts",
-      "source_location": "L30",
+      "source_location": "L76",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_data_fixtures",
@@ -6908,6 +7428,18 @@
       "_origin": "ast",
       "source": "src_pages_commandpage",
       "target": "src_data_fixtures_severity",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/CivilianPages.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_civilianpages",
+      "target": "src_data_fixtures_camp",
       "confidence_score": 1.0
     },
     {
@@ -7120,7 +7652,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages",
@@ -7180,7 +7712,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages",
@@ -7678,7 +8210,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L213",
+      "source_location": "L214",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages_sospage",
@@ -7761,7 +8293,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages",
@@ -7774,7 +8306,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages_passportpage",
@@ -7786,7 +8318,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L207",
+      "source_location": "L208",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages_sospage",
@@ -7891,7 +8423,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages",
@@ -7902,7 +8434,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages",
@@ -7913,7 +8445,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages",
@@ -7924,7 +8456,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L357",
+      "source_location": "L358",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages",
@@ -7935,7 +8467,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CivilianPages.tsx",
-      "source_location": "L206",
+      "source_location": "L207",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_civilianpages",
@@ -7969,7 +8501,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/pages/CommandPage.tsx",
-      "source_location": "L31",
+      "source_location": "L47",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_commandpage_commandpage",
@@ -8467,6 +8999,270 @@
       "_origin": "ast",
       "source": "tsconfig_node_include",
       "target": "ref_vitest_config_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme",
+      "target": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_core_capabilities_innovation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L2",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_find_the_people_the_signal_misses",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L207",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_license",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L175",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_prototype_test_credentials",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L110",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_quick_start_installation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L97",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_real_time_multi_device_demonstration",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L199",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_references_prior_art",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L30",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_system_architecture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L187",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_technology_stack",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L159",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_testing_validation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_the_3_system_interfaces",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_sahayam_\u0d38\u0d39_\u0d2f",
+      "target": "readme_the_problem_rescue_systems_navigate_blind",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_the_problem_rescue_systems_navigate_blind",
+      "target": "readme_the_real_case_wayanad_landslides_august_2024",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_core_capabilities_innovation",
+      "target": "readme_1_dark_zone_silence_anomaly_scorer",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L68",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_core_capabilities_innovation",
+      "target": "readme_2_disconnected_data_distribution_ddd_offline_mesh",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_core_capabilities_innovation",
+      "target": "readme_3_digital_household_resilience_passport_qr_triage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L82",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_core_capabilities_innovation",
+      "target": "readme_4_hazard_aware_evacuation_routing",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L116",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_quick_start_installation",
+      "target": "readme_1_clone_install_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L123",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_quick_start_installation",
+      "target": "readme_2_start_development_server",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L135",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_quick_start_installation",
+      "target": "readme_3_testing_on_multiple_devices",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L112",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_quick_start_installation",
+      "target": "readme_prerequisites",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_3_testing_on_multiple_devices",
+      "target": "readme_option_a_connected_to_same_wi_fi_hotspot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L148",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "readme_3_testing_on_multiple_devices",
+      "target": "readme_option_b_campus_hostel_wi_fi_with_client_isolation",
       "confidence_score": 1.0
     },
     {
@@ -9710,5 +10506,5 @@
       "source_file": "SAHAYAM.md"
     }
   ],
-  "built_at_commit": "4b726a3d3d25a84be300fe1232ef202364eb3692"
+  "built_at_commit": "10e4f59a6f88c95c4756184478acf73668d2b047"
 }

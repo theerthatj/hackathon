@@ -19,10 +19,26 @@ function scoreSeverity(score: number): Severity {
 }
 
 export function CommandPage() {
-  const { bundles, isRelayConnected } = useDtnMesh()
+  const { bundles, isRelayConnected, publishSos } = useDtnMesh()
   const [activeScenario, setActiveScenario] = useState<string>('severe_silence')
   const [selectedCell, setSelectedCell] = useState(() => silenceCells.find(cell => cell.id === 'WYD-07C') ?? silenceCells[0])
   const selectCell = useCallback((cell: SilenceCell) => setSelectedCell(cell), [])
+
+  const [focusNonce, setFocusNonce] = useState(0)
+  const [focusTargetName, setFocusTargetName] = useState<string | undefined>()
+
+  const handleFocusCell = useCallback((cellId: string, originName?: string) => {
+    const targetCell = silenceCells.find(c => c.id === cellId || c.cell_code === cellId)
+    if (targetCell) {
+      setSelectedCell({ ...targetCell })
+    }
+    setFocusTargetName(originName)
+    setFocusNonce(n => n + 1)
+    const mapEl = document.getElementById('silence-map-container')
+    if (mapEl) {
+      mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }, [])
 
   const latestSos = bundles[0]
 
@@ -120,10 +136,7 @@ export function CommandPage() {
               <div style={{ display: 'flex', gap: '8px' }}>
                 <Button
                   variant="primary"
-                  onClick={() => {
-                    const targetCell = silenceCells.find(c => c.id === latestSos.cellId || c.cell_code === latestSos.cellId)
-                    if (targetCell) selectCell(targetCell)
-                  }}
+                  onClick={() => handleFocusCell(latestSos.cellId, latestSos.originName)}
                   icon={<Map size={16} />}
                 >
                   Locate Cell ({latestSos.cellId})
@@ -193,7 +206,11 @@ export function CommandPage() {
                     const found = silenceCells.find(
                       cell => cell.id === event.target.value || cell.cell_code === event.target.value
                     )
-                    if (found) selectCell(found)
+                    if (found) {
+                      selectCell(found)
+                      setFocusNonce(n => n + 1)
+                      setFocusTargetName(found.place)
+                    }
                   }}
                 >
                   {silenceCells.map(cell => {
@@ -209,7 +226,13 @@ export function CommandPage() {
             </div>
 
             {/* True Geographic Silence Map with Continuous Thermal Gradient */}
-            <SilenceMap selectedId={selectedCell.id} onSelect={selectCell} activeScenario={activeScenario} />
+            <SilenceMap
+              selectedId={selectedCell.id}
+              onSelect={selectCell}
+              activeScenario={activeScenario}
+              focusNonce={focusNonce}
+              focusTargetName={focusTargetName}
+            />
 
             {/* Thermal Scale Legend matching Image 2 */}
             <div className="map-legend">
@@ -319,10 +342,7 @@ export function CommandPage() {
               {scenarioSilentZones.map(zone => (
                 <button
                   key={zone.id}
-                  onClick={() => {
-                    const cell = silenceCells.find(item => item.id === zone.id || item.cell_code === zone.id)
-                    if (cell) selectCell(cell)
-                  }}
+                  onClick={() => handleFocusCell(zone.id, zone.place)}
                 >
                   <span className="zone-score">{zone.score}</span>
                   <span>
@@ -352,57 +372,169 @@ export function CommandPage() {
               Open full audit log
             </Button>
           </Panel>
+        </section>
 
-          {/* Live DDD DTN Mesh Ingest Telemetry Panel */}
+        {/* Large Dedicated Section: DDD Delay-Tolerant Ingest Feed & Audit Trail */}
+        <section className="dtn-large-section" style={{ marginTop: '16px' }}>
           <Panel
-            title="DDD Delay-Tolerant Ingest Feed"
-            eyebrow="Real-time multi-device sneakernet mesh"
-            action={<StatusBadge severity={isRelayConnected ? 'safe' : 'watch'}>{isRelayConnected ? 'Network Live' : 'Local Mesh'}</StatusBadge>}
+            title="DDD Delay-Tolerant Network (DTN) Ingest Feed & Custody Audit"
+            eyebrow="IEEE-Cited Store-and-Forward Sneakernet Mesh · Real-Time Multi-Device Telemetry"
+            action={
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span className={`status ${isRelayConnected ? 'status--safe' : 'status--warning'}`} style={{ fontSize: '11px' }}>
+                  <Radio size={12} />
+                  {isRelayConnected ? 'Multi-Device Live Sync' : 'Local Mesh'}
+                </span>
+                <span className="status status--info" style={{ fontSize: '11px' }}>
+                  {bundles.length} {bundles.length === 1 ? 'Packet' : 'Packets'} Tracked
+                </span>
+              </div>
+            }
           >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {bundles.length === 0 ? (
-                <p style={{ color: 'var(--muted)', fontSize: '13px' }}>No active DTN bundles received.</p>
-              ) : (
-                bundles.map(b => (
-                  <div
-                    key={b.bundleId}
-                    style={{
-                      background: 'var(--surface-1)',
-                      border: '1px solid var(--border)',
-                      borderRadius: 'var(--radius-md)',
-                      padding: '10px 12px',
-                    }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <span className={`status ${b.priority === 'P0_CRITICAL' ? 'status--critical' : 'status--warning'}`} style={{ fontSize: '10px' }}>
-                          {b.priority}
-                        </span>
-                        <strong style={{ fontSize: '13px', color: 'var(--fg-strong)' }}>{b.originName}</strong>
-                      </div>
-                      <span className={`status ${b.status === 'DELIVERED_COMMAND' ? 'status--safe' : b.status === 'IN_TRANSIT' ? 'status--warning' : 'status--critical'}`} style={{ fontSize: '10px' }}>
-                        {b.status === 'DELIVERED_COMMAND' ? 'Uplinked' : b.status === 'IN_TRANSIT' ? 'In Transit' : 'Local Node'}
-                      </span>
-                    </div>
-
-                    <div style={{ fontSize: '12px', color: 'var(--fg-strong)', marginBottom: '4px' }}>
-                      <strong>{b.emergencyType}:</strong> {b.medicalSummary} · Cell <strong>{b.cellId}</strong>
-                    </div>
-
-                    <div style={{ fontSize: '11px', color: 'var(--muted)', display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Radio size={12} color="var(--brand)" />
-                        <span>ADU: <code>{b.bundleId.slice(0, 18)}…</code></span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <Clock3 size={12} color="var(--safe)" />
-                        <span>Hops: {b.custodyReceipts.map(r => r.custodianName.split(' ')[0]).join(' → ')}</span>
-                      </div>
-                    </div>
+            {bundles.length === 0 ? (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  background: 'var(--surface-1)',
+                  padding: '24px 28px',
+                  borderRadius: 'var(--radius-lg)',
+                  border: '1px dashed var(--border)',
+                  flexWrap: 'wrap',
+                  gap: '16px',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <div style={{ background: 'var(--surface-2)', padding: '14px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Radio size={28} color="var(--brand)" />
                   </div>
-                ))
-              )}
-            </div>
+                  <div>
+                    <strong style={{ fontSize: '16px', color: 'var(--fg-strong)', display: 'block' }}>
+                      DTN Gateway Receiver Active & Awaiting Courier Uplinks
+                    </strong>
+                    <span style={{ fontSize: '13px', color: 'var(--muted)', display: 'block', marginTop: '4px', maxWidth: '680px' }}>
+                      No distress packets currently in transit. When a civilian triggers an Emergency SOS on their phone or a volunteer courier arrives within gateway range, packets appear here in real-time with verified custody receipts.
+                    </span>
+                  </div>
+                </div>
+
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    publishSos({
+                      originNodeId: 'usr-mathew-1',
+                      originName: 'Georgekutty Mathew',
+                      householdName: 'Mathew Villa',
+                      cellId: 'WYD-07C',
+                      emergencyType: 'Trapped or missing',
+                      coordinates: { lat: 11.554, lng: 76.105 },
+                      medicalSummary: 'Compound fracture, pinned under beam. 2 occupants.',
+                      bloodGroup: 'O+',
+                      priority: 'P0_CRITICAL',
+                    })
+                  }}
+                  icon={<Siren size={16} />}
+                >
+                  + Simulate Civilian SOS Trigger
+                </Button>
+              </div>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '14px' }}>
+                {bundles.map(b => {
+                  const isDelivered = b.status === 'DELIVERED_COMMAND'
+                  const isInTransit = b.status === 'IN_TRANSIT'
+                  const isPending = b.status === 'PENDING_LOCAL'
+
+                  return (
+                    <div
+                      key={b.bundleId}
+                      className="dtn-adu-card"
+                      onClick={() => handleFocusCell(b.cellId, b.originName)}
+                      role="button"
+                      tabIndex={0}
+                      style={{
+                        background: selectedCell.id === b.cellId ? 'var(--surface-2)' : 'var(--surface-1)',
+                        border: `1.5px solid ${selectedCell.id === b.cellId ? 'var(--brand)' : isDelivered ? 'var(--safe)' : isPending ? 'var(--critical)' : 'var(--warning)'}`,
+                        borderLeftWidth: '6px',
+                        borderRadius: 'var(--radius-md)',
+                        padding: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        gap: '12px',
+                        cursor: 'pointer',
+                        transition: 'all 0.18s ease',
+                      }}
+                    >
+                      {/* Packet Header */}
+                      <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
+                          <div>
+                            <span className={`status ${b.priority === 'P0_CRITICAL' ? 'status--critical' : 'status--warning'}`} style={{ fontSize: '10px', marginRight: '6px' }}>
+                              {b.priority}
+                            </span>
+                            <strong style={{ fontSize: '15px', color: 'var(--fg-strong)' }}>{b.originName}</strong>
+                            <span style={{ fontSize: '12px', color: 'var(--muted)', display: 'block', marginTop: '2px' }}>
+                              {b.householdName} · Sector <strong>{b.cellId}</strong> (Mundakkai North)
+                            </span>
+                          </div>
+
+                          <span
+                            className={`status ${isDelivered ? 'status--safe' : isPending ? 'status--critical' : 'status--warning'}`}
+                            style={{ fontSize: '11px' }}
+                          >
+                            {isDelivered ? 'Uplinked to DEOC' : isInTransit ? 'Courier in Transit' : 'Local Node (Pending)'}
+                          </span>
+                        </div>
+
+                        {/* Medical / Emergency Detail Box */}
+                        <div style={{ background: 'var(--surface-2)', padding: '10px 12px', borderRadius: 'var(--radius-sm)', fontSize: '12px', marginBottom: '8px' }}>
+                          <div style={{ fontWeight: 600, color: 'var(--critical)', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
+                            <Siren size={14} />
+                            <span>{b.emergencyType}</span>
+                            {b.bloodGroup && <span style={{ color: 'var(--muted)', fontWeight: 400 }}>· Blood: {b.bloodGroup}</span>}
+                          </div>
+                          <div style={{ color: 'var(--fg-strong)' }}>{b.medicalSummary}</div>
+                        </div>
+
+                        {/* Audit Receipts Trail */}
+                        <div style={{ fontSize: '11px', color: 'var(--muted)', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <ShieldCheck size={13} color="var(--safe)" />
+                            <span>ADU Bundle: <code>{b.bundleId}</code> (SHA-256 verified)</span>
+                          </div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <Clock3 size={13} color="var(--brand)" />
+                            <span>
+                              <strong>Custody Chain:</strong> {b.custodyReceipts.map(r => r.custodianName.split(' (')[0]).join(' ➔ ')}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card Action */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: '10px' }}>
+                        <span style={{ fontSize: '11px', color: 'var(--safe)', fontWeight: 600 }}>
+                          ✓ Within 4h crush syndrome window
+                        </span>
+                        <Button
+                          variant={selectedCell.id === b.cellId ? 'primary' : 'quiet'}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleFocusCell(b.cellId, b.originName)
+                          }}
+                          icon={<Map size={14} />}
+                          style={{ fontSize: '12px', padding: '4px 10px' }}
+                        >
+                          {selectedCell.id === b.cellId ? 'Focused Cell' : 'Focus Cell'}
+                        </Button>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </Panel>
         </section>
 

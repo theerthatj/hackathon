@@ -1,21 +1,21 @@
 # Graph Report - sahayam  (2026-09-06)
 
 ## Corpus Check
-- 38 files · ~107,915 words
+- 40 files · ~110,995 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 355 nodes · 489 edges · 25 communities (19 shown, 6 thin omitted)
+- 387 nodes · 528 edges · 27 communities (21 shown, 6 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 9 edges (avg confidence: 0.91)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4b726a3d`
+- Built from commit: `10e4f59a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- FieldPages.tsx
+- CivilianPages.tsx
 - devDependencies
 - CommandPage.tsx
 - compilerOptions
@@ -34,6 +34,8 @@
 - generate_dataset.py
 - Tables
 - DtnStore
+- SAHAYAM (സഹായം)
+- Scenarios: Testing Silence Detection
 
 ## God Nodes (most connected - your core abstractions)
 1. `SahayamStore` - 20 edges
@@ -41,23 +43,23 @@
 3. `useSahayamStore()` - 17 edges
 4. `compilerOptions` - 17 edges
 5. `Sahayam Silence Dataset` - 15 edges
-6. `Sahayam Silence Dataset — Complete Summary` - 11 edges
-7. `useDtnMesh()` - 10 edges
-8. `Scenarios: Testing Silence Detection` - 10 edges
-9. `Tables` - 9 edges
-10. `Dataset Design Principles` - 9 edges
+6. `SAHAYAM (സഹായം)` - 13 edges
+7. `Sahayam Silence Dataset — Complete Summary` - 11 edges
+8. `useDtnMesh()` - 10 edges
+9. `Scenarios: Testing Silence Detection` - 10 edges
+10. `Tables` - 9 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Incident Command Visual Design Specification` --references--> `Button()`  [INFERRED]
   DESIGN.md → src/components/ui.tsx
+- `Incident Command Live Triage Console` --implements--> `CommandPage()`  [INFERRED]
+  sahayam-system-plan-revised.md → src/pages/CommandPage.tsx
 - `P2P Offline Mesh & Wi-Fi Direct Relay` --references--> `ScannerPage()`  [INFERRED]
   SAHAYAM.md → src/pages/FieldPages.tsx
 - `Sahayam System Plan & Architecture Blueprint` --references--> `App()`  [INFERRED]
   system-plan.md → src/App.tsx
 - `Dark Neutral & Semantic Accent Color System` --references--> `SilenceMap()`  [INFERRED]
   DESIGN.md → src/components/SilenceMap.tsx
-- `Dark Zone Silence Anomaly Scorer` --implements--> `SilenceMap()`  [INFERRED]
-  SAHAYAM.md → src/components/SilenceMap.tsx
 
 ## Import Cycles
 - None detected.
@@ -66,19 +68,19 @@
 - **Disaster Resilience & Dark Zone Triage Pipeline** — sahayam_dark_zone_scorer, src_components_silencemap_silencemap, src_pages_commandpage_commandpage, src_data_fixtures_silentzones [INFERRED 0.95]
 - **Offline Field & Responder Coordination Flow** — sahayam_p2p_mesh, sahayam_store_forward, src_pages_fieldpages_scannerpage, src_components_ui_syncqueue [INFERRED 0.95]
 
-## Communities (25 total, 6 thin omitted)
+## Communities (27 total, 6 thin omitted)
 
-### Community 0 - "FieldPages.tsx"
+### Community 0 - "CivilianPages.tsx"
 Cohesion: 0.08
-Nodes (32): Incident Command Visual Design Specification, Application HTML Shell & Viewport Entry, Store-and-Forward Local Synchronization Database, App(), CommandPage, AppShell(), Button(), ButtonProps (+24 more)
+Nodes (31): Incident Command Visual Design Specification, Application HTML Shell & Viewport Entry, P2P Offline Mesh & Wi-Fi Direct Relay, Store-and-Forward Local Synchronization Database, App(), CommandPage, AppShell(), Button() (+23 more)
 
 ### Community 1 - "devDependencies"
 Cohesion: 0.06
 Nodes (33): eslint, @eslint/js, eslint-plugin-react-hooks, eslint-plugin-react-refresh, globals, jsdom, devDependencies, eslint (+25 more)
 
 ### Community 2 - "CommandPage.tsx"
-Cohesion: 0.13
-Nodes (22): Dark Neutral & Semantic Accent Color System, Human Proximity Confidence Score (HPCS), Dark Zone Silence Anomaly Scorer, Incident Command Live Triage Console, BasemapKey, MapStatus, SilenceMap(), SilenceMapProps (+14 more)
+Cohesion: 0.10
+Nodes (29): Dark Neutral & Semantic Accent Color System, Human Proximity Confidence Score (HPCS), Dark Zone Silence Anomaly Scorer, Incident Command Live Triage Console, CampsMap(), CampsMapProps, getRouteCoordinates(), TILE_STYLES (+21 more)
 
 ### Community 3 - "compilerOptions"
 Cohesion: 0.08
@@ -93,12 +95,12 @@ Cohesion: 0.20
 Nodes (9): eslint.config.js, vite.config.ts, vitest.config.ts, compilerOptions, composite, module, moduleResolution, skipLibCheck (+1 more)
 
 ### Community 6 - "Sahayam Silence Dataset"
-Cohesion: 0.05
-Nodes (42): 1. Prerequisites, 2. Create Database, 3. Generate Dataset, 4. Load into PostgreSQL, 5. Verify Data, Add New Cell Types or Scenarios, Adjust Signal Weights, Cell-Type Specific Adjustments (+34 more)
+Cohesion: 0.06
+Nodes (32): 1. Prerequisites, 2. Create Database, 3. Generate Dataset, 4. Load into PostgreSQL, 5. Verify Data, Add New Cell Types or Scenarios, Adjust Signal Weights, Cell-Type Specific Adjustments (+24 more)
 
 ### Community 18 - "SahayamStore"
-Cohesion: 0.22
-Nodes (5): qrcode, qrcode, P2P Offline Mesh & Wi-Fi Direct Relay, SahayamStore, ScannerPage()
+Cohesion: 0.24
+Nodes (5): qrcode, qrcode, PROTOTYPE_CREDENTIALS, SahayamStore, HomePage()
 
 ### Community 19 - "Sahayam Silence Dataset — Complete Summary"
 Cohesion: 0.06
@@ -120,8 +122,16 @@ Nodes (11): `actual_signal_profile`, Database Schema, `expected_signal_profile`,
 Cohesion: 0.17
 Nodes (7): ADUBundle, CustodyReceipt, DtnStore, playEmergencyChime(), SEED_BUNDLES, useDtnMesh(), DtnRelayPage()
 
+### Community 25 - "SAHAYAM (സഹായം)"
+Cohesion: 0.08
+Nodes (24): 1. Clone & Install Dependencies, 1. Dark Zone Silence Anomaly Scorer, 2. Disconnected Data Distribution (DDD) Offline Mesh, 2. Start Development Server, 3. Digital Household Resilience Passport & QR Triage, 3. Testing on Multiple Devices, 4. Hazard-Aware Evacuation Routing, ⚡ Core Capabilities & Innovation (+16 more)
+
+### Community 26 - "Scenarios: Testing Silence Detection"
+Cohesion: 0.20
+Nodes (10): Scenario A: Normal Operations, Scenario B: Partial Silence, Scenario C: Severe Silence, Scenario D: Complete Silence, Scenario E: False Silence / Low Baseline, Scenario F: Communication Outage, Scenario G: Network/Data Collection Failure, Scenario H: Increased Activity (+2 more)
+
 ## Knowledge Gaps
-- **178 isolated node(s):** `name`, `private`, `version`, `type`, `dev` (+173 more)
+- **199 isolated node(s):** `name`, `private`, `version`, `type`, `dev` (+194 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -129,16 +139,16 @@ Nodes (7): ADUBundle, CustodyReceipt, DtnStore, playEmergencyChime(), SEED_BUNDL
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `dependencies` connect `dependencies` to `SahayamStore`?**
-  _High betweenness centrality (0.114) - this node is a cross-community bridge._
+  _High betweenness centrality (0.101) - this node is a cross-community bridge._
 - **Why does `qrcode` connect `SahayamStore` to `dependencies`?**
-  _High betweenness centrality (0.108) - this node is a cross-community bridge._
+  _High betweenness centrality (0.096) - this node is a cross-community bridge._
 - **Why does `devDependencies` connect `devDependencies` to `dependencies`?**
-  _High betweenness centrality (0.080) - this node is a cross-community bridge._
+  _High betweenness centrality (0.070) - this node is a cross-community bridge._
 - **What connects `name`, `private`, `version` to the rest of the system?**
-  _178 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `FieldPages.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.07918367346938776 - nodes in this community are weakly interconnected._
+  _199 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `CivilianPages.tsx` be split into smaller, more focused modules?**
+  _Cohesion score 0.0782312925170068 - nodes in this community are weakly interconnected._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06060606060606061 - nodes in this community are weakly interconnected._
 - **Should `CommandPage.tsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.13 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09659090909090909 - nodes in this community are weakly interconnected._

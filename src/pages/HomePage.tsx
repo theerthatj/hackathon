@@ -36,27 +36,6 @@ export function HomePage() {
   return (
     <AppShell>
       <main className="home">
-        <section className="hero">
-          <div>
-            <p className="eyebrow">Disaster Resilience · Offline Coordination · Silence Anomaly Triage</p>
-            <h1>Find the people<br />the signal misses.</h1>
-            <p>
-              Sahayam delivers explainable silence-anomaly detection for disconnected disaster zones while maintaining
-              household resilience passports, instant QR medical triage, and hazard-safe evacuation routes.
-            </p>
-          </div>
-          <div className="hero-visual">
-            <span className="pulse pulse--1" />
-            <span className="pulse pulse--2" />
-            <span className="pulse pulse--3" />
-            <div>
-              <HeartHandshake size={42} />
-              <strong>SAHAYAM</strong>
-              <small>Help remains visible</small>
-            </div>
-          </div>
-        </section>
-
         {/* Prototype Credential & Quick Switcher Strip */}
         <section className="proto-auth-strip" aria-label="Prototype accounts">
           <div className="proto-auth-strip__header">
