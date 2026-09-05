@@ -1,0 +1,10 @@
+scenario_id,name,category,start_time,end_time,severity_factor,affected_cell_count,notes
+normal,Normal Operations,normal,2026-08-01 00:00:00,2026-08-03 00:00:00,1.0,5,Normal signal levels with natural variation.
+partial_silence,Partial Silence Event,partial_silence,2026-08-02 10:00:00,2026-08-02 14:00:00,0.4,8,Localized event causing partial reduction in signals.
+severe_silence,Severe Silence,severe_silence,2026-08-03 08:00:00,2026-08-03 13:00:00,0.15,6,Major disruption causing severe signal loss.
+complete_silence,Complete Silence,complete_silence,2026-08-04 09:00:00,2026-08-04 12:00:00,0.0,4,Total communication loss in affected area.
+low_baseline,Low Baseline (False Silence),false_silence,2026-08-04 15:00:00,2026-08-04 18:00:00,1.0,3,Rural cells with naturally low signal expectations.
+communication_outage,Communication Outage,communication_outage,2026-08-05 06:00:00,2026-08-05 09:00:00,1.0,7,Network/communication system failure. Other signals normal.
+network_failure,Network/Data Collection Failure,network_failure,2026-08-06 12:00:00,2026-08-06 15:00:00,1.0,5,Data collection system failure; mobility & communication unavailable.
+increased_activity,Increased Activity,increased_activity,2026-08-07 10:00:00,2026-08-07 13:00:00,1.8,6,High activity period; signals exceed expected levels.
+disaster_progression,Disaster Progression,partial_silence,2026-08-05 10:00:00,2026-08-05 16:00:00,0.5,8,Disaster evolving from onset to peak to recovery.

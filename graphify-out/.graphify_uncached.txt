@@ -1,0 +1,7 @@
+/home/ashin/Hackathon/sahayam/DESIGN.md
+/home/ashin/Hackathon/sahayam/SAHAYAM.md
+/home/ashin/Hackathon/sahayam/index.html
+/home/ashin/Hackathon/sahayam/motion-fingerprint-plan.md
+/home/ashin/Hackathon/sahayam/sahayam-system-plan-revised.md
+/home/ashin/Hackathon/sahayam/sahayam-unified-system-plan-web.md
+/home/ashin/Hackathon/sahayam/system-plan.md

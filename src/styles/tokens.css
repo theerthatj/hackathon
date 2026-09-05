@@ -25,6 +25,11 @@
   --critical-bg: #fdeced;
   --info: #1458a5;
   --info-bg: #eaf2fd;
+  --heat-0: #0284c7;
+  --heat-low: #06b6d4;
+  --heat-mid: #fbbf24;
+  --heat-high: #f97316;
+  --heat-peak: #dc2626;
   --focus: #007cb7;
   --shadow-sm: 0 1px 2px rgb(7 29 24 / 8%);
   --shadow-md: 0 10px 30px rgb(7 29 24 / 10%);
@@ -62,6 +67,11 @@
   --critical-bg: #401f23;
   --info: #78b6ff;
   --info-bg: #1c3048;
+  --heat-0: #0369a1;
+  --heat-low: #0891b2;
+  --heat-mid: #f59e0b;
+  --heat-high: #ea580c;
+  --heat-peak: #ef4444;
   --focus: #67c8f1;
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 30%);
   --shadow-md: 0 10px 30px rgb(0 0 0 / 28%);

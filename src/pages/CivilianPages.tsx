@@ -1,43 +1,393 @@
-import { AlertTriangle, ArrowRight, CheckCircle2, Clock3, MapPin, Navigation, PhoneCall, QrCode, Shield, Siren, Users } from 'lucide-react'
+import { useState } from 'react'
+import { AlertTriangle, ArrowRight, CheckCircle2, Clock3, Download, HeartPulse, MapPin, Navigation, PhoneCall, QrCode, Shield, Siren, User, Users } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { AppShell } from '../components/AppShell'
-import { Button, Panel, StatusBadge, SyncQueue } from '../components/ui'
+import { Button, Panel, StatusBadge } from '../components/ui'
 import { camps } from '../data/fixtures'
+import { useSahayamStore, type UserMember } from '../data/store'
 
 const nav = [
-  { to: '/civilian/sos', label: 'SOS', icon: Siren },
-  { to: '/civilian/passport', label: 'Passport', icon: QrCode },
-  { to: '/civilian/route', label: 'Safe route', icon: Navigation },
+  { to: '/civilian/passport', label: '1. Passport & QR', icon: QrCode },
+  { to: '/civilian/sos', label: 'Emergency SOS', icon: Siren },
+  { to: '/civilian/route', label: 'Safe Evacuation Route', icon: Navigation },
 ]
 
-function CivilianLayout({ title, description, children }: { title: string; description: string; children: React.ReactNode }) {
-  return <AppShell><main className="mobile-workspace"><header className="page-heading"><p className="eyebrow">Civilian safety</p><h1>{title}</h1><p>{description}</p></header>{children}</main><nav className="mobile-nav" aria-label="Civilian navigation">{nav.map(({ to, label, icon: Icon }) => <NavLink key={to} to={to} className={({ isActive }) => isActive ? 'is-active' : ''}><Icon size={20} /><span>{label}</span></NavLink>)}</nav></AppShell>
-}
-
-export function SosPage() {
-  return <CivilianLayout title="Emergency SOS" description="Send an urgent request for help. Your request is saved offline until delivery is confirmed.">
-    <button className="sos-button"><Siren size={30} /><span><strong>Trigger emergency SOS</strong><small>Tap to review and send your location</small></span></button>
-    <Panel title="What kind of help do you need?" className="section-card"><div className="choice-grid"><button><PhoneCall size={18} />Medical emergency</button><button><Users size={18} />Trapped or missing</button><button><MapPin size={18} />Food or water</button><button><AlertTriangle size={18} />Fire or landslide</button></div></Panel>
-    <SyncQueue />
-    <div className="notice notice--info"><Shield size={20} /><div><strong>Your SOS stays visible</strong><span>It remains active until a response team confirms delivery.</span></div></div>
-  </CivilianLayout>
+function CivilianLayout({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <AppShell>
+      <main className="mobile-workspace">
+        <header className="page-heading">
+          <p className="eyebrow">User / Household Interface</p>
+          <h1>{title}</h1>
+        </header>
+        {children}
+      </main>
+      <nav className="mobile-nav" aria-label="Civilian navigation">
+        {nav.map(({ to, label, icon: Icon }) => (
+          <NavLink key={to} to={to} className={({ isActive }) => isActive ? 'is-active' : ''}>
+            <Icon size={18} />
+            <span>{label}</span>
+          </NavLink>
+        ))}
+      </nav>
+    </AppShell>
+  )
 }
 
 export function PassportPage() {
-  return <CivilianLayout title="Community resilience passport" description="Show this code to an authorized relief worker to securely retrieve your household record.">
-    <Panel className="passport-card"><div className="passport-top"><div className="qr-placeholder"><QrCode size={74} aria-label="Household QR code" /></div><div><StatusBadge severity="safe">Synced 2 hours ago</StatusBadge><h2>Household KH-0482</h2><p>Ward 11 · Meppadi</p></div></div><div className="passport-stats"><span><strong>4</strong> members</span><span><strong>1</strong> priority need</span><span><strong>2</strong> contacts</span></div></Panel>
-    <div className="notice notice--info"><Shield size={20} /><div><strong>Privacy protected</strong><span>The QR contains only a secure lookup reference, never your medical information.</span></div></div>
-    <div className="stack-actions"><Button block icon={<Navigation size={18} />}>View evacuation route</Button><Button block variant="danger" icon={<Siren size={18} />}>Emergency SOS</Button></div>
-  </CivilianLayout>
+  const { households, auth } = useSahayamStore()
+
+  // Find the household (defaults to Kuruvilla House or user's associated household)
+  const defaultHousehold = households.find(h => h.id === auth?.associatedHouseholdId) ||
+    households.find(h => h.name.toLowerCase().includes('kuruvilla')) ||
+    households[0]
+
+  const [selectedHouseholdId, setSelectedHouseholdId] = useState(defaultHousehold?.id || '')
+  const activeHousehold = households.find(h => h.id === selectedHouseholdId) || defaultHousehold
+
+  const [selectedMemberId, setSelectedMemberId] = useState<string>(() => {
+    return activeHousehold?.members[0]?.id || ''
+  })
+
+  const currentMember = activeHousehold?.members.find(m => m.id === selectedMemberId) || activeHousehold?.members[0]
+
+  const handleDownloadQr = () => {
+    if (!currentMember?.qrDataUrl) return
+    const link = document.createElement('a')
+    link.download = `${currentMember.name.replace(/\s+/g, '_')}_Resilience_QR.png`
+    link.href = currentMember.qrDataUrl
+    link.click()
+  }
+
+  return (
+    <CivilianLayout title="Resilience Passport & QR">
+      {/* Household Selector / Info */}
+      <Panel className="passport-card">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
+          <div>
+            <span style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--brand)', fontWeight: 800 }}>
+              Household Profile
+            </span>
+            <h2 style={{ margin: '2px 0 0', fontSize: '22px', color: 'var(--fg-strong)' }}>
+              {activeHousehold?.name || 'Kuruvilla House'}
+            </h2>
+            <p style={{ margin: 0, fontSize: '12px', color: 'var(--muted)' }}>
+              {activeHousehold?.ward} · Cell {activeHousehold?.cellId}
+            </p>
+          </div>
+          <StatusBadge severity="safe">Synced to Cloud</StatusBadge>
+        </div>
+
+        {/* Member Selector Tabs */}
+        <div style={{ margin: '12px 0', display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+          {activeHousehold?.members.map(member => (
+            <button
+              key={member.id}
+              onClick={() => setSelectedMemberId(member.id)}
+              className={`proto-badge-btn ${currentMember?.id === member.id ? 'is-active' : ''}`}
+            >
+              <User size={13} />
+              {member.name} {member.isElderly && '(Elderly)'}
+            </button>
+          ))}
+        </div>
+
+        {currentMember && (
+          <div>
+            {/* Generated QR Code Card */}
+            <div className="qr-container">
+              {currentMember.qrDataUrl ? (
+                <img
+                  src={currentMember.qrDataUrl}
+                  alt={`QR code for ${currentMember.name}`}
+                />
+              ) : (
+                <div style={{ padding: '40px', color: 'var(--muted)' }}>Generating QR Code…</div>
+              )}
+              <div>
+                <strong style={{ fontSize: '15px', color: '#111' }}>{currentMember.name}</strong>
+                <div style={{ fontSize: '12px', color: '#666' }}>
+                  {activeHousehold?.name} · Age {currentMember.age} · Blood {currentMember.bloodGroup}
+                </div>
+                <div className="qr-token-text" style={{ marginTop: '6px' }}>
+                  Token: {currentMember.qrToken}
+                </div>
+              </div>
+              <Button variant="secondary" onClick={handleDownloadQr} icon={<Download size={15} />}>
+                Save QR to Phone
+              </Button>
+            </div>
+
+            {/* Medical & Vulnerability Details */}
+            <div style={{ display: 'grid', gap: '8px', marginTop: '14px' }}>
+              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                {currentMember.isElderly && <span className="vulnerability-tag vulnerability-tag--critical">Elderly (60+)</span>}
+                {currentMember.isBedridden && <span className="vulnerability-tag vulnerability-tag--critical">Bedridden</span>}
+                {currentMember.isPregnant && <span className="vulnerability-tag vulnerability-tag--critical">Pregnant</span>}
+                {currentMember.isInfant && <span className="vulnerability-tag">Child Under 5</span>}
+                <span className="vulnerability-tag">Blood: {currentMember.bloodGroup}</span>
+              </div>
+
+              <div style={{ background: 'var(--surface-2)', padding: '12px', borderRadius: 'var(--radius-md)', fontSize: '13px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--brand-strong)', fontWeight: 700, marginBottom: '4px' }}>
+                  <HeartPulse size={16} /> Medical Conditions
+                </div>
+                <p style={{ margin: '0 0 6px', color: 'var(--fg)' }}>{currentMember.conditions}</p>
+                <div style={{ fontWeight: 600, color: 'var(--muted)', fontSize: '12px' }}>Medication & Schedule:</div>
+                <p style={{ margin: 0, color: 'var(--fg)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>{currentMember.medication}</p>
+              </div>
+
+              {currentMember.disability && currentMember.disability !== 'None' && (
+                <div style={{ background: 'var(--surface-2)', padding: '10px 12px', borderRadius: 'var(--radius-md)', fontSize: '12px' }}>
+                  <strong>Mobility / Disability:</strong> {currentMember.disability}
+                </div>
+              )}
+
+              <div style={{ background: 'var(--surface-2)', padding: '10px 12px', borderRadius: 'var(--radius-md)', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <PhoneCall size={14} color="var(--brand)" />
+                <span>Emergency Contact: <strong>{currentMember.emergencyContact}</strong></span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="passport-stats" style={{ marginTop: '18px' }}>
+          <span><strong>{activeHousehold?.members.length || 0}</strong> members in house</span>
+          <span><strong>{activeHousehold?.members.filter(m => m.isElderly || m.isBedridden).length || 0}</strong> priority needs</span>
+          <span><strong>{activeHousehold?.ward.split('·')[0]}</strong> ward</span>
+        </div>
+      </Panel>
+
+      {/* Household Members List */}
+      <Panel title={`All Members of ${activeHousehold?.name || 'Kuruvilla House'}`} eyebrow="Household Roster">
+        <div style={{ display: 'grid', gap: '8px' }}>
+          {activeHousehold?.members.map(m => (
+            <div
+              key={m.id}
+              onClick={() => setSelectedMemberId(m.id)}
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '10px 12px',
+                borderRadius: 'var(--radius-md)',
+                background: currentMember?.id === m.id ? 'var(--brand-soft)' : 'var(--surface-2)',
+                border: currentMember?.id === m.id ? '1px solid var(--brand)' : '1px solid transparent',
+                cursor: 'pointer',
+              }}
+            >
+              <div>
+                <strong>{m.name}</strong> <small style={{ color: 'var(--muted)' }}>({m.age}y · {m.gender} · {m.bloodGroup})</small>
+                <div style={{ fontSize: '11px', color: 'var(--muted)' }}>{m.conditions}</div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <StatusBadge severity={m.status === 'Medical review' ? 'warning' : 'safe'}>{m.status}</StatusBadge>
+                <QrCode size={16} color="var(--brand)" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </Panel>
+
+      <div className="stack-actions">
+        <NavLink to="/civilian/route" style={{ textDecoration: 'none' }}>
+          <Button block icon={<Navigation size={18} />}>View Safe Evacuation Route</Button>
+        </NavLink>
+        <NavLink to="/civilian/sos" style={{ textDecoration: 'none' }}>
+          <Button block variant="danger" icon={<Siren size={18} />}>Emergency SOS</Button>
+        </NavLink>
+      </div>
+    </CivilianLayout>
+  )
+}
+
+import { useDtnMesh } from '../data/dtn'
+
+export function SosPage() {
+  const { auth, getMemberById } = useSahayamStore()
+  const { publishSos, bundles, isRelayConnected } = useDtnMesh()
+  const [selectedType, setSelectedType] = useState('Medical emergency')
+  const [activeBundleId, setActiveBundleId] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const currentMember = auth?.associatedUserId ? getMemberById(auth.associatedUserId) : null
+  const activeBundle = activeBundleId ? bundles.find(b => b.bundleId === activeBundleId) : null
+
+  const handleTriggerSos = async () => {
+    setIsSubmitting(true)
+    try {
+      const bundle = await publishSos({
+        originNodeId: currentMember?.id || 'usr-kuru-1',
+        originName: currentMember?.name || 'Ammini Kuruvilla',
+        householdName: currentMember?.householdName || 'Kuruvilla House',
+        cellId: 'WYD-07C',
+        emergencyType: selectedType,
+        coordinates: { lat: 11.552, lng: 76.102 },
+        medicalSummary: currentMember ? `${currentMember.conditions} · Blood ${currentMember.bloodGroup}` : 'Type 2 Diabetes, Severe Hypertension',
+        bloodGroup: currentMember?.bloodGroup || 'B+',
+        conditions: currentMember?.conditions || 'Type 2 Diabetes, Severe Hypertension',
+        medication: currentMember?.medication || 'Insulin glargine (10 IU at 8 PM)',
+        isBedridden: currentMember?.isBedridden || false,
+      })
+      setActiveBundleId(bundle.bundleId)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  return (
+    <CivilianLayout title="Emergency SOS">
+      {activeBundle ? (
+        <div className="section-card" style={{ marginBottom: '16px' }}>
+          <div className={`notice ${activeBundle.status === 'DELIVERED_COMMAND' ? 'notice--safe' : activeBundle.status === 'IN_TRANSIT' ? 'notice--warning' : 'notice--critical'}`} style={{ padding: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Siren size={24} className={activeBundle.status === 'PENDING_LOCAL' ? 'pulse-alert' : ''} />
+              <div>
+                <strong>SOS Distress Beacon Active</strong>
+                <span style={{ display: 'block', fontSize: '12px', marginTop: '2px' }}>
+                  ADU Bundle: <code>{activeBundle.bundleId}</code> · Cell <strong>{activeBundle.cellId}</strong>
+                </span>
+              </div>
+            </div>
+
+            {/* Live Custody Tracking Progress */}
+            <div style={{ marginTop: '14px', background: 'var(--surface-1)', padding: '12px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
+              <p style={{ margin: '0 0 6px', fontSize: '11px', fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase' }}>
+                DDD Delay-Tolerant Delivery Pipeline:
+              </p>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '13px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--fg-strong)' }}>
+                  <CheckCircle2 size={16} color="var(--safe)" />
+                  <span><strong>1. Stored On Device:</strong> Encrypted atomic ADU saved locally (SHA-256 protected).</span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: activeBundle.status === 'IN_TRANSIT' || activeBundle.status === 'DELIVERED_COMMAND' ? 'var(--fg-strong)' : 'var(--muted)' }}>
+                  {activeBundle.status === 'IN_TRANSIT' || activeBundle.status === 'DELIVERED_COMMAND' ? (
+                    <CheckCircle2 size={16} color="var(--safe)" />
+                  ) : (
+                    <Clock3 size={16} color="var(--brand)" className="pulse-alert" />
+                  )}
+                  <span>
+                    <strong>2. Wi-Fi Direct Courier:</strong>{' '}
+                    {activeBundle.custodian ? (
+                      <span style={{ color: 'var(--brand)' }}>
+                        In custody of <strong>{activeBundle.custodian.name}</strong> ({activeBundle.custodian.location})
+                      </span>
+                    ) : (
+                      <span>Awaiting passing volunteer/vehicle transport node within 10–20m range</span>
+                    )}
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: activeBundle.status === 'DELIVERED_COMMAND' ? 'var(--safe)' : 'var(--muted)' }}>
+                  {activeBundle.status === 'DELIVERED_COMMAND' ? (
+                    <CheckCircle2 size={16} color="var(--safe)" />
+                  ) : (
+                    <Clock3 size={16} />
+                  )}
+                  <span>
+                    <strong>3. DEOC Command Ingest:</strong>{' '}
+                    {activeBundle.status === 'DELIVERED_COMMAND' ? (
+                      <strong>Uplinked & Confirmed at Incident Command! Rescue team dispatched.</strong>
+                    ) : (
+                      'Pending gateway reach'
+                    )}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', color: 'var(--muted)' }}>
+              <span>Multi-device relay: <strong>{isRelayConnected ? 'Connected (Live)' : 'Local Mesh Mode'}</strong></span>
+              <button 
+                onClick={handleTriggerSos} 
+                disabled={isSubmitting}
+                style={{ background: 'none', border: 'none', color: 'var(--brand)', cursor: 'pointer', textDecoration: 'underline' }}
+              >
+                Retrigger / Update Beacon
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <button className="sos-button" onClick={handleTriggerSos} disabled={isSubmitting}>
+          <Siren size={32} />
+          <span>
+            <strong>{isSubmitting ? 'Encapsulating ADU…' : 'Trigger Emergency SOS'}</strong>
+            <small>Sends your GPS location and medical passport via offline DDD mesh</small>
+          </span>
+        </button>
+      )}
+
+      <Panel title="What kind of help do you need?" className="section-card">
+        <div className="choice-grid">
+          {['Medical emergency', 'Trapped or missing', 'Food or water', 'Landslide / Flood debris'].map(type => (
+            <button
+              key={type}
+              style={{
+                borderColor: selectedType === type ? 'var(--brand)' : 'var(--border)',
+                background: selectedType === type ? 'var(--brand-soft)' : 'var(--surface-2)',
+              }}
+              onClick={() => setSelectedType(type)}
+            >
+              {type === 'Medical emergency' && <PhoneCall size={18} />}
+              {type === 'Trapped or missing' && <Users size={18} />}
+              {type === 'Food or water' && <MapPin size={18} />}
+              {type === 'Landslide / Flood debris' && <AlertTriangle size={18} />}
+              {type}
+            </button>
+          ))}
+        </div>
+      </Panel>
+
+      <div className="notice notice--info">
+        <Shield size={18} />
+        <div>
+          <strong>Offline Delay-Tolerant Transmission (DDD) Active</strong>
+          <span>
+            Even if cell towers are offline, your SOS is packed into an encrypted Application Data Unit (ADU) and automatically transferred via peer-to-peer Wi-Fi Direct when a volunteer or transport node passes within 10–20 meters.
+          </span>
+        </div>
+      </div>
+    </CivilianLayout>
+  )
 }
 
 export function RoutePage() {
   const camp = camps[0]
-  return <CivilianLayout title="Evacuation route" description="Route selected using current hazard zones, road closures, elevation, and camp capacity.">
-    <div className="notice notice--warning"><AlertTriangle size={20} /><div><strong>Flood warning active</strong><span>District hazard feed updated 12 min ago.</span></div></div>
-    <div className="route-map" role="img" aria-label="Map preview showing safe route to St. Thomas HSS"><span className="map-label map-label--start">You</span><div className="route-line" /><span className="map-label map-label--end">Camp</span><span className="map-road">Kalpetta–Meppadi Road</span></div>
-    <Panel eyebrow="Recommended destination" title={camp.name}><div className="camp-meta"><span><MapPin size={16} />{camp.distance}</span><span><Users size={16} />{camp.capacity}% occupied</span><span><CheckCircle2 size={16} />{camp.status}</span></div><div className="capacity"><span style={{ width: `${camp.capacity}%` }} /></div><p className="reason"><Shield size={17} />Safest available route avoids the river bridge closure.</p></Panel>
-    <div className="route-summary"><span><Clock3 size={17} /><strong>18 min</strong> estimated</span><span><Navigation size={17} /><strong>2.1 km</strong> distance</span></div>
-    <Button block icon={<ArrowRight size={18} />}>Start navigation</Button>
-  </CivilianLayout>
+  return (
+    <CivilianLayout title="Evacuation Route">
+      <div className="route-map" role="img" aria-label="Map preview showing safe route to St. Thomas HSS">
+        <span className="map-label map-label--start">You</span>
+        <div className="route-line" />
+        <span className="map-label map-label--end">Camp</span>
+        <span className="map-road">Kalpetta–Meppadi High Ridge Road</span>
+      </div>
+
+      <Panel eyebrow="Hazard-Aware Recommended Destination" title={camp.name}>
+        <div className="camp-meta">
+          <span><MapPin size={16} />{camp.distance}</span>
+          <span><Users size={16} />{camp.capacity}% occupied</span>
+          <span><CheckCircle2 size={16} />{camp.status}</span>
+        </div>
+        <div className="capacity">
+          <span style={{ width: `${camp.capacity}%` }} />
+        </div>
+        <p className="reason">
+          <Shield size={17} />
+          Avoids Chooralmala river bridge debris. Elevation is +38m above flash flood warning line.
+        </p>
+      </Panel>
+
+      <div className="route-summary">
+        <span><Clock3 size={17} /><strong>18 min</strong> estimated</span>
+        <span><Navigation size={17} /><strong>2.1 km</strong> distance</span>
+      </div>
+
+      <Button block icon={<ArrowRight size={18} />}>
+        Start Offline Navigation
+      </Button>
+    </CivilianLayout>
+  )
 }

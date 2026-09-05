@@ -1,0 +1,137 @@
+{
+  "eslint.config.js": {
+    "mtime": 1788616405.666107,
+    "ast_hash": "94a1c0119c61bb52bed7bd4948fd549e",
+    "semantic_hash": "94a1c0119c61bb52bed7bd4948fd549e"
+  },
+  "package.json": {
+    "mtime": 1788617625.3404686,
+    "ast_hash": "36ece88fda0e300ef8d0afa3841e5d33",
+    "semantic_hash": "36ece88fda0e300ef8d0afa3841e5d33"
+  },
+  "src/App.test.tsx": {
+    "mtime": 1788617977.392516,
+    "ast_hash": "bcf6cbe8c3f83ba95d663d2681f86bcb",
+    "semantic_hash": "bcf6cbe8c3f83ba95d663d2681f86bcb"
+  },
+  "src/App.tsx": {
+    "mtime": 1788617940.1952946,
+    "ast_hash": "d7c4a8dab5f1451742b55d1a08c24b76",
+    "semantic_hash": "d7c4a8dab5f1451742b55d1a08c24b76"
+  },
+  "src/components/AppShell.tsx": {
+    "mtime": 1788623702.8474407,
+    "ast_hash": "955ac2b3f24f2346e0a04e10c556873d",
+    "semantic_hash": "955ac2b3f24f2346e0a04e10c556873d"
+  },
+  "src/components/SilenceMap.tsx": {
+    "mtime": 1788626507.3611093,
+    "ast_hash": "d253edbb156e6b51569bd9b5b19c187e",
+    "semantic_hash": ""
+  },
+  "src/components/ui.tsx": {
+    "mtime": 1788616449.5579302,
+    "ast_hash": "82844a4d4da6b0b05578665de2913821",
+    "semantic_hash": "82844a4d4da6b0b05578665de2913821"
+  },
+  "src/data/fixtures.ts": {
+    "mtime": 1788617637.94164,
+    "ast_hash": "9784b8a520e23625ebce182015e8323a",
+    "semantic_hash": "9784b8a520e23625ebce182015e8323a"
+  },
+  "src/main.tsx": {
+    "mtime": 1788616419.832862,
+    "ast_hash": "4e75475fac4606127e753771a6023414",
+    "semantic_hash": "4e75475fac4606127e753771a6023414"
+  },
+  "src/pages/CivilianPages.tsx": {
+    "mtime": 1788624039.7599494,
+    "ast_hash": "c43ebd498be1655900f52357ae5188b9",
+    "semantic_hash": "c43ebd498be1655900f52357ae5188b9"
+  },
+  "src/pages/CommandPage.tsx": {
+    "mtime": 1788623687.9802384,
+    "ast_hash": "97d4493b774e69c6a85a1feb5ba7c351",
+    "semantic_hash": "97d4493b774e69c6a85a1feb5ba7c351"
+  },
+  "src/pages/FieldPages.tsx": {
+    "mtime": 1788623658.3265438,
+    "ast_hash": "ea487abfbac40b981cd236274a73001c",
+    "semantic_hash": "ea487abfbac40b981cd236274a73001c"
+  },
+  "src/pages/HomePage.tsx": {
+    "mtime": 1788616527.2784307,
+    "ast_hash": "74e714a2771e7891b822806f03f59d37",
+    "semantic_hash": "74e714a2771e7891b822806f03f59d37"
+  },
+  "src/test-setup.ts": {
+    "mtime": 1788616750.1028829,
+    "ast_hash": "2c271435e60d9aeb6cd3a5e1e122a5c0",
+    "semantic_hash": "2c271435e60d9aeb6cd3a5e1e122a5c0"
+  },
+  "tsconfig.app.json": {
+    "mtime": 1788616405.2869592,
+    "ast_hash": "a4b96eaebf79abf847ab382c5c0133f0",
+    "semantic_hash": "a4b96eaebf79abf847ab382c5c0133f0"
+  },
+  "tsconfig.json": {
+    "mtime": 1788616405.0735724,
+    "ast_hash": "a3d39fa780ebff65444de257f291ce6c",
+    "semantic_hash": "a3d39fa780ebff65444de257f291ce6c"
+  },
+  "tsconfig.node.json": {
+    "mtime": 1788616810.869377,
+    "ast_hash": "28d1b439733435dad6c38d3955199602",
+    "semantic_hash": "28d1b439733435dad6c38d3955199602"
+  },
+  "vite.config.ts": {
+    "mtime": 1788626479.7616513,
+    "ast_hash": "a72236a56f812f24fc2b4de1a1fdddea",
+    "semantic_hash": ""
+  },
+  "vitest.config.ts": {
+    "mtime": 1788616810.5247467,
+    "ast_hash": "0017c2b007525b402d8c19d031624d5d",
+    "semantic_hash": "0017c2b007525b402d8c19d031624d5d"
+  },
+  "DESIGN.md": {
+    "mtime": 1788603977.3632505,
+    "ast_hash": "041e43950ca34d96e51a76e90cc4a226",
+    "semantic_hash": "041e43950ca34d96e51a76e90cc4a226"
+  },
+  "SAHAYAM.md": {
+    "mtime": 1788604128.9640822,
+    "ast_hash": "87218eaa71b122aae5d894901a503e32",
+    "semantic_hash": "87218eaa71b122aae5d894901a503e32"
+  },
+  "index.html": {
+    "mtime": 1788616404.843135,
+    "ast_hash": "ad399db9dc081ebb2a488dc9614a1064",
+    "semantic_hash": "ad399db9dc081ebb2a488dc9614a1064"
+  },
+  "motion-fingerprint-plan.md": {
+    "mtime": 1788606991.5796602,
+    "ast_hash": "39e5abaeafcf128e04c8c570fbd79a5e",
+    "semantic_hash": "39e5abaeafcf128e04c8c570fbd79a5e"
+  },
+  "sahayam-system-plan-revised.md": {
+    "mtime": 1788609530.7774408,
+    "ast_hash": "e60baa4e0579a85ab054a26912699745",
+    "semantic_hash": "e60baa4e0579a85ab054a26912699745"
+  },
+  "sahayam-unified-system-plan-web.md": {
+    "mtime": 1788615624.302444,
+    "ast_hash": "30ccccb0ddf9ba747e5d101ffd3f92bc",
+    "semantic_hash": "30ccccb0ddf9ba747e5d101ffd3f92bc"
+  },
+  "system-plan.md": {
+    "mtime": 1788606951.8201635,
+    "ast_hash": "ea43160e9e3b7c678da55d3bb24ee1a1",
+    "semantic_hash": "ea43160e9e3b7c678da55d3bb24ee1a1"
+  },
+  "src/vite-env.d.ts": {
+    "mtime": 1788626486.8647625,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": ""
+  }
+}

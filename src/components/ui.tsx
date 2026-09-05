@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react'
+import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, SelectHTMLAttributes } from 'react'
 import { AlertTriangle, CheckCircle2, CircleAlert, Info, LoaderCircle, Wifi, WifiOff } from 'lucide-react'
 import type { Severity } from '../data/fixtures'
 
@@ -26,8 +26,8 @@ export function Field({ label, id, ...props }: InputHTMLAttributes<HTMLInputElem
   return <label className="field" htmlFor={id}><span>{label}</span><input id={id} {...props} /></label>
 }
 
-export function SelectField({ label, id, children }: { label: string; id: string; children: ReactNode }) {
-  return <label className="field" htmlFor={id}><span>{label}</span><select id={id}>{children}</select></label>
+export function SelectField({ label, id, children, ...props }: SelectHTMLAttributes<HTMLSelectElement> & { label: string; id: string }) {
+  return <label className="field" htmlFor={id}><span>{label}</span><select id={id} {...props}>{children}</select></label>
 }
 
 export function Panel({ title, eyebrow, action, children, className = '' }: { title?: string; eyebrow?: string; action?: ReactNode; children: ReactNode; className?: string }) {

@@ -1,0 +1,292 @@
+{
+  "nodes": [
+    {
+      "id": "design_visual_specification",
+      "label": "Incident Command Visual Design Specification",
+      "file_type": "document",
+      "source_file": "/home/ashin/Hackathon/sahayam/DESIGN.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "design_color_system",
+      "label": "Dark Neutral & Semantic Accent Color System",
+      "file_type": "concept",
+      "source_file": "/home/ashin/Hackathon/sahayam/DESIGN.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "design_accessibility",
+      "label": "High-Contrast WCAG Operational Display Standard",
+      "file_type": "rationale",
+      "source_file": "/home/ashin/Hackathon/sahayam/DESIGN.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "sahayam_ddd_core",
+      "label": "Disaster Distress Detection (DDD) Core",
+      "file_type": "document",
+      "source_file": "/home/ashin/Hackathon/sahayam/SAHAYAM.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "sahayam_dark_zone_scorer",
+      "label": "Dark Zone Silence Anomaly Scorer",
+      "file_type": "concept",
+      "source_file": "/home/ashin/Hackathon/sahayam/SAHAYAM.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "sahayam_p2p_mesh",
+      "label": "P2P Offline Mesh & Wi-Fi Direct Relay",
+      "file_type": "concept",
+      "source_file": "/home/ashin/Hackathon/sahayam/SAHAYAM.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "sahayam_store_forward",
+      "label": "Store-and-Forward Local Synchronization Database",
+      "file_type": "concept",
+      "source_file": "/home/ashin/Hackathon/sahayam/SAHAYAM.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "motion_fingerprint_plan_active_vs_passive",
+      "label": "Active vs Passive Motion Fingerprinting",
+      "file_type": "document",
+      "source_file": "/home/ashin/Hackathon/sahayam/motion-fingerprint-plan.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "motion_fingerprint_plan_human_proximity",
+      "label": "Human Proximity Confidence Score (HPCS)",
+      "file_type": "concept",
+      "source_file": "/home/ashin/Hackathon/sahayam/motion-fingerprint-plan.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "sahayam_system_plan_revised_architecture",
+      "label": "Sahayam Unified Production Architecture",
+      "file_type": "document",
+      "source_file": "/home/ashin/Hackathon/sahayam/sahayam-system-plan-revised.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "sahayam_system_plan_revised_command_console",
+      "label": "Incident Command Live Triage Console",
+      "file_type": "concept",
+      "source_file": "/home/ashin/Hackathon/sahayam/sahayam-system-plan-revised.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "sahayam_unified_system_plan_web_triage",
+      "label": "Web Digital Silence Anomaly Triage",
+      "file_type": "document",
+      "source_file": "/home/ashin/Hackathon/sahayam/sahayam-unified-system-plan-web.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "system_plan_repo_context",
+      "label": "Sahayam System Plan & Architecture Blueprint",
+      "file_type": "document",
+      "source_file": "/home/ashin/Hackathon/sahayam/system-plan.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "index_html_mount",
+      "label": "Application HTML Shell & Viewport Entry",
+      "file_type": "document",
+      "source_file": "/home/ashin/Hackathon/sahayam/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "sahayam_dark_zone_scorer",
+      "target": "src_components_silencemap_silencemap",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/ashin/Hackathon/sahayam/SAHAYAM.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "sahayam_dark_zone_scorer",
+      "target": "src_data_fixtures_silentzones",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/ashin/Hackathon/sahayam/SAHAYAM.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "sahayam_system_plan_revised_command_console",
+      "target": "src_pages_commandpage_commandpage",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/ashin/Hackathon/sahayam/sahayam-system-plan-revised.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "motion_fingerprint_plan_human_proximity",
+      "target": "sahayam_dark_zone_scorer",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "/home/ashin/Hackathon/sahayam/motion-fingerprint-plan.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "design_color_system",
+      "target": "src_components_silencemap_silencemap",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "/home/ashin/Hackathon/sahayam/DESIGN.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "design_visual_specification",
+      "target": "src_components_ui_button",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "/home/ashin/Hackathon/sahayam/DESIGN.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "sahayam_store_forward",
+      "target": "src_components_ui_syncqueue",
+      "relation": "implements",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/ashin/Hackathon/sahayam/SAHAYAM.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "sahayam_p2p_mesh",
+      "target": "src_pages_fieldpages_scannerpage",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "/home/ashin/Hackathon/sahayam/SAHAYAM.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "system_plan_repo_context",
+      "target": "src_app_app",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/ashin/Hackathon/sahayam/system-plan.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "index_html_mount",
+      "target": "src_main",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "/home/ashin/Hackathon/sahayam/index.html",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "disaster_resilience_triage_loop",
+      "label": "Disaster Resilience & Dark Zone Triage Pipeline",
+      "nodes": [
+        "sahayam_dark_zone_scorer",
+        "src_components_silencemap_silencemap",
+        "src_pages_commandpage_commandpage",
+        "src_data_fixtures_silentzones"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/ashin/Hackathon/sahayam/sahayam-unified-system-plan-web.md"
+    },
+    {
+      "id": "offline_field_coordination",
+      "label": "Offline Field & Responder Coordination Flow",
+      "nodes": [
+        "sahayam_p2p_mesh",
+        "sahayam_store_forward",
+        "src_pages_fieldpages_scannerpage",
+        "src_components_ui_syncqueue"
+      ],
+      "relation": "participate_in",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "/home/ashin/Hackathon/sahayam/SAHAYAM.md"
+    }
+  ],
+  "input_tokens": 1200,
+  "output_tokens": 800
+}

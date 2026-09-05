@@ -1,0 +1,6 @@
+case_id,description,test_cell_id,test_window_start,expected_base_score,score_tolerance,notes
+deterministic_match,All signals match expected values (coverage=1.0),C002,2026-08-01 00:00:00,0.0,0.01,"When actual = expected, all deficits are 0, BaseScore = 0"
+complete_signal_loss,All signal dimensions are zero,C001,2026-08-04 10:00:00,1.0,0.05,"When actual=0 and expected>threshold, coverage=0, deficit=1, BaseScore=1"
+partial_deficit,Average signal deficit of ~50%,C001,2026-08-02 12:00:00,0.4,0.15,Partial silence scenario with 40% multiplier
+low_baseline_normal,Low baseline; actual matches low expected,C029,2026-08-03 03:00:00,0.0,0.05,"Even if signals are low, if expected is also low and baseline_valid=False, dimensions excluded"
+increased_activity_excess,Actual > Expected (80% increase),C001,2026-08-07 11:00:00,0.0,0.0,"deficit = max(0, 1 - coverage); excess activity gives deficit=0"

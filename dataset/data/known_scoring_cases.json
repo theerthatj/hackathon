@@ -1,0 +1,47 @@
+[
+  {
+    "case_id": "deterministic_match",
+    "description": "All signals match expected values (coverage=1.0)",
+    "test_cell_id": "C002",
+    "test_window_start": "2026-08-01 00:00:00",
+    "expected_base_score": 0.0,
+    "score_tolerance": 0.01,
+    "notes": "When actual = expected, all deficits are 0, BaseScore = 0"
+  },
+  {
+    "case_id": "complete_signal_loss",
+    "description": "All signal dimensions are zero",
+    "test_cell_id": "C001",
+    "test_window_start": "2026-08-04 10:00:00",
+    "expected_base_score": 1.0,
+    "score_tolerance": 0.05,
+    "notes": "When actual=0 and expected>threshold, coverage=0, deficit=1, BaseScore=1"
+  },
+  {
+    "case_id": "partial_deficit",
+    "description": "Average signal deficit of ~50%",
+    "test_cell_id": "C001",
+    "test_window_start": "2026-08-02 12:00:00",
+    "expected_base_score": 0.4,
+    "score_tolerance": 0.15,
+    "notes": "Partial silence scenario with 40% multiplier"
+  },
+  {
+    "case_id": "low_baseline_normal",
+    "description": "Low baseline; actual matches low expected",
+    "test_cell_id": "C029",
+    "test_window_start": "2026-08-03 03:00:00",
+    "expected_base_score": 0.0,
+    "score_tolerance": 0.05,
+    "notes": "Even if signals are low, if expected is also low and baseline_valid=False, dimensions excluded"
+  },
+  {
+    "case_id": "increased_activity_excess",
+    "description": "Actual > Expected (80% increase)",
+    "test_cell_id": "C001",
+    "test_window_start": "2026-08-07 11:00:00",
+    "expected_base_score": 0.0,
+    "score_tolerance": 0.0,
+    "notes": "deficit = max(0, 1 - coverage); excess activity gives deficit=0"
+  }
+]
