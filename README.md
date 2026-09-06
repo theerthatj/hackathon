@@ -5,9 +5,23 @@
 [![React 19](https://img.shields.io/badge/React-19.2.7-61dafb.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-3178c6.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8.2.2-646cff.svg)](https://vitejs.dev/)
-[![Tests](https://img.shields.io/badge/Tests-9%20passed-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/Tests-38%20passed%20(28%20Vitest%20%2B%2010%20Pytest)-brightgreen.svg)]()
 
 > **Disaster Resilience · Explainable Silence Anomaly Triage · Offline DDD Mesh · Digital Household Passports**
+
+---
+
+## 🔍 What is Real vs. Simulated
+
+To ensure total transparency, the following table demarcates what is fully operational in this prototype versus what is simulated or roadmapped:
+
+| Capability | In This Prototype | Native / Production Roadmap |
+|---|---|---|
+| **DTN Transport** | **Real on LAN / Same Device**: Multi-device broadcast via Vite SSE relay (`/api/dtn/*`) and cross-tab `BroadcastChannel`. | Wi-Fi Direct & BLE peripheral mesh requiring native device radio APIs (scoped in `motion-fingerprint-plan.md`). |
+| **Data Integrity** | **Real Cryptographic SHA-256**: Deterministic hashing over canonical immutable payload; tamper-detected at every custody hop. | Asymmetric signatures (Ed25519) + selective payload encryption. |
+| **Resilience Passport** | **Real Opaque Token**: High-density QR code encodes only `sahayam:user:<id>`. Medical records resolve securely on volunteer's device. | Verifiable Credentials / W3C Decentralized Identifiers (DID). |
+| **Silence Anomaly Scorer** | **Real Mathematical Scorer**: Tested on 100 Wayanad spatial cells, 537k baseline rows, and 67k ground-truth records. | Direct API streaming from telecom CDRs and smart meter power grids. |
+| **Command Heatmap** | **Real GPU-Accelerated GIS**: MapLibre GL 6 vector polygon rendering with continuous deficit interpolation. | State Emergency Operations Centre (SEOC) live spatial feed. |
 
 ---
 
@@ -67,17 +81,17 @@ Sahayam is architected around **Domain-Driven Design (DDD)** and delivers 4 core
 
 ### 2. Disconnected Data Distribution (DDD) Offline Mesh
 * **Delay-Tolerant Networking (DTN)**: Citing the IEEE/Computer Society paper *"A Mobile-First Disconnected Data Distribution Network"*.
-* **Atomic Application Data Units (ADUs)**: Distress signals and medical records are packaged into encrypted, tamper-evident bundles (`SHA-256` payload verification).
-* **Human Sneakernet Couriers**: Uses localized peer-to-peer Wi-Fi Direct discovery (10–20m range) to transfer custody from trapped civilians to mobile volunteers, supply trucks, or drones.
+* **Atomic Application Data Units (ADUs)**: Distress signals and medical records are packaged into tamper-evident bundles (SHA-256 integrity hash over a canonical payload; not encrypted in the prototype).
+* **Store-and-Forward Proximity Transport**: Proximity transport is simulated in this web prototype via `BroadcastChannel` (cross-tab/same-device) and a real Vite SSE relay (same LAN). Physical Wi-Fi Direct / BLE requires the native shell scoped in `motion-fingerprint-plan.md`.
 * **Clinical Latency Tracking**: Visualizes transit times against the medical **4–6 hour crush syndrome golden window**.
 
 ### 3. Digital Household Resilience Passport & QR Triage
 * **Household Grouping**: Organizes vulnerable members under known household units (e.g. *Kuruvilla House*, *Varier House*).
-* **Offline Optical QR Code**: High-density QR tokens encode critical medical indicators:
+* **Offline Optical QR Code**: QR encodes only an opaque token `sahayam:user:<id>`. Medical data is resolved on the authorised volunteer's device; a photographed QR leaks nothing:
   - Chronic conditions (Type 2 Diabetes, Hypertension, Asthma)
   - Crucial medications & dosages (Insulin glargine, Amlodipine)
   - Mobility flags (Bedridden, Elderly, Infant, Pregnant)
-* **One-Tap Camp Intake**: Volunteers scan civilian QR codes in under 1 second without internet connection.
+* **Camp Intake Verification**: Token entry and sample picker available offline; camera scanning planned in Phase 6.
 
 ### 4. Hazard-Aware Evacuation Routing
 * Integrates topographical elevation data (+38m safety thresholds) and debris reports (e.g., river bridge collapses) to steer civilians toward viable relief shelters.
@@ -89,7 +103,7 @@ Sahayam is architected around **Domain-Driven Design (DDD)** and delivers 4 core
 | Role | Route | Description & Workflow |
 | :--- | :--- | :--- |
 | **1. Users (Civilian)** | `/civilian/passport`<br>`/civilian/sos`<br>`/civilian/route` | View family resilience passport, generate offline medical QR, trigger atomic SOS beacon with live custody pipeline tracking. |
-| **2. Volunteers / Field** | `/field/dtn-relay`<br>`/field/scanner`<br>`/field/member`<br>`/field/registry` | **4. DDD SOS Relay** (Wi-Fi Direct proximity radar, custody handshake, gateway uplink), optical QR camp scanner, household registry. |
+| **2. Volunteers / Field** | `/field/dtn-relay`<br>`/field/scanner`<br>`/field/member`<br>`/field/registry` | **4. DDD SOS Relay** (LAN SSE relay + BroadcastChannel mesh, custody handshake, gateway uplink), optical QR camp scanner, household registry. |
 | **3. Admin (DEOC)** | `/command` | Incident Command overview: 100-sector thermal silence heatmap, scenario switcher, live incoming SOS alerts, and DTN custody audit log. |
 
 ---

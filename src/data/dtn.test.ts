@@ -24,9 +24,46 @@ describe('Disconnected Data Distribution (DDD) DTN Store', () => {
     expect(bundle.bundleId).toMatch(/^adu-/)
     expect(bundle.status).toBe('PENDING_LOCAL')
     expect(bundle.priority).toBe('P0_CRITICAL')
+    expect(bundle.integrityHash).toHaveLength(64)
     expect(bundle.encryptedHash).toHaveLength(64)
+    expect(bundle.hashAlgo).toBe('SHA-256')
     expect(bundle.custodyReceipts).toHaveLength(1)
     expect(bundle.custodyReceipts[0].action).toBe('CREATED')
+
+    const isValid = await dtnStore.verifyBundle(bundle as unknown as Record<string, unknown>)
+    expect(isValid).toBe(true)
+  })
+
+  it('detects tampering and refuses custody and gateway uplink', async () => {
+    const bundle = await dtnStore.publishSos({
+      originNodeId: 'usr-tamper-test',
+      originName: 'George',
+      householdName: 'George House',
+      cellId: 'WYD-07C',
+      emergencyType: 'Medical emergency',
+      medication: 'Insulin',
+    })
+
+    expect(await dtnStore.verifyBundle(bundle as unknown as Record<string, unknown>)).toBe(true)
+
+    // Tamper with medical data
+    bundle.medication = 'Steroids (Altered by attacker)'
+    expect(await dtnStore.verifyBundle(bundle as unknown as Record<string, unknown>)).toBe(false)
+
+    // Attempting custody on tampered bundle must be refused
+    const custodyAttempt = await dtnStore.acceptCustody({
+      bundleId: bundle.bundleId,
+      custodianId: 'vol-1',
+      custodianName: 'Volunteer',
+    })
+    expect(custodyAttempt).toBeUndefined()
+    expect(bundle.tampered).toBe(true)
+
+    // Attempting uplink on tampered bundle must also be refused
+    const uplinkAttempt = await dtnStore.uplinkToGateway({
+      bundleId: bundle.bundleId,
+    })
+    expect(uplinkAttempt).toBeUndefined()
   })
 
   it('allows volunteer to take courier custody and updates status to IN_TRANSIT', async () => {

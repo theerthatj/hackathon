@@ -1,4 +1,6 @@
 import QRCode from 'qrcode'
+import { syncQueue } from './syncQueue'
+import { isApiEnabled, apiLogin, setAuthToken } from '../api/client'
 
 export type Role = 'user' | 'volunteer' | 'admin'
 
@@ -383,6 +385,28 @@ class SahayamStore {
     this.saveHouseholds()
     this.notify()
 
+    // Enqueue to IndexedDB sync outbox
+    syncQueue.enqueue('ADD_MEMBER', {
+      householdId: household.id,
+      member: {
+        name: newMember.name,
+        age: newMember.age,
+        gender: newMember.gender,
+        bloodGroup: newMember.bloodGroup,
+        conditions: newMember.conditions,
+        medication: newMember.medication,
+        disability: newMember.disability,
+        isElderly: newMember.isElderly,
+        isPregnant: newMember.isPregnant,
+        isInfant: newMember.isInfant,
+        isBedridden: newMember.isBedridden,
+        emergencyContact: newMember.emergencyContact,
+        qrToken: newMember.qrToken,
+        status: newMember.status,
+        campName: newMember.campName,
+      },
+    }).catch(() => {})
+
     return { member: newMember, household }
   }
 
@@ -394,6 +418,14 @@ class SahayamStore {
         if (campName) member.campName = campName
         this.saveHouseholds()
         this.notify()
+
+        // Enqueue to IndexedDB sync outbox
+        syncQueue.enqueue('UPDATE_MEMBER_STATUS', {
+          memberId,
+          status,
+          campName,
+        }).catch(() => {})
+
         return member
       }
     }
@@ -420,6 +452,12 @@ class SahayamStore {
     }
     this.saveAuth()
     this.notify()
+
+    // If API backend is enabled, asynchronously authenticate to acquire JWT bearer token
+    if (isApiEnabled()) {
+      apiLogin({ email, pass }).catch(() => {})
+    }
+
     return { success: true, role: cred.role }
   }
 
@@ -446,6 +484,7 @@ class SahayamStore {
 
   public logout() {
     this.activeAccount = null
+    setAuthToken(null)
     this.saveAuth()
     this.notify()
   }

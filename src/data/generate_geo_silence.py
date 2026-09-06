@@ -59,6 +59,11 @@ scenario_windows = {
     'normal': {'window': '2026-08-01 12:00:00', 'label': 'Baseline (Normal Operations)', 'description': 'Nominal telemetry with natural urban-rural variation'}
 }
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "backend"))
+from app.scoring import score_cell
+
 scenario_data = {}
 
 for s_key, s_info in scenario_windows.items():
@@ -70,47 +75,11 @@ for s_key, s_info in scenario_windows.items():
     
     cell_results = {}
     for cell_id, group in merged.groupby('cell_id'):
-        valid_deficits = []
-        valid_weights = []
-        breakdown = {}
-        
-        for _, row in group.iterrows():
-            stype = row['signal_type_id']
-            exp = float(row['expected_value'])
-            act = float(row['actual_value'])
-            b_valid = bool(row['baseline_valid'])
-            d_avail = bool(row['data_available'])
-            w = float(row['weight'])
-            
-            if not b_valid or exp < 0.05 or not d_avail:
-                breakdown[stype] = {
-                    'expected': round(exp, 1),
-                    'actual': round(act, 1),
-                    'deficit_pct': 0,
-                    'status': 'unavailable' if not d_avail else 'low_baseline'
-                }
-                continue
-                
-            cov = act / exp if exp > 0 else 0.0
-            deficit = max(0.0, min(1.0, 1.0 - cov))
-            valid_deficits.append(deficit)
-            valid_weights.append(w)
-            breakdown[stype] = {
-                'expected': round(exp, 1),
-                'actual': round(act, 1),
-                'deficit_pct': int(round(deficit * 100)),
-                'status': 'active'
-            }
-            
-        if valid_weights and sum(valid_weights) > 0:
-            score = sum(d * w for d, w in zip(valid_deficits, valid_weights)) / sum(valid_weights)
-        else:
-            score = 0.0
-            
-        score_100 = int(round(min(1.0, max(0.0, score)) * 100))
+        rows = group.to_dict('records')
+        res = score_cell(rows, weights)
         cell_results[cell_id] = {
-            'score': score_100,
-            'breakdown': breakdown
+            'score': res['score_pct'],
+            'breakdown': res['breakdown']
         }
     scenario_data[s_key] = cell_results
 

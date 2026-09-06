@@ -1,0 +1,37 @@
+{
+  "name": "Sahayam · Disaster Resilience",
+  "short_name": "Sahayam",
+  "description": "Decentralized disaster resilience, offline medical passports, silence telemetry, and DTN mesh relay.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#031412",
+  "theme_color": "#073b33",
+  "categories": ["medical", "utilities", "social"],
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "SOS Beacon",
+      "url": "/civilian/sos",
+      "description": "Trigger offline emergency DTN SOS"
+    },
+    {
+      "name": "Triage QR Scanner",
+      "url": "/field/scanner",
+      "description": "Scan citizen emergency QR pass"
+    },
+    {
+      "name": "Command Center",
+      "url": "/command",
+      "description": "Geographic silence telemetry dashboard"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import { Button, Panel, StatusBadge } from '../components/ui'
 import { camps, type Camp } from '../data/fixtures'
 import { CampsMap } from '../components/CampsMap'
 import { useSahayamStore, type UserMember } from '../data/store'
+import { useT } from '../i18n'
 
 const nav = [
   { to: '/civilian/passport', label: '1. Passport & QR', icon: QrCode },
@@ -14,11 +15,12 @@ const nav = [
 ]
 
 function CivilianLayout({ title, children }: { title: string; children: React.ReactNode }) {
+  const t = useT()
   return (
     <AppShell>
       <main className="mobile-workspace">
         <header className="page-heading">
-          <p className="eyebrow">User / Household Interface</p>
+          <p className="eyebrow">{t('civilianNav')}</p>
           <h1>{title}</h1>
         </header>
         {children}
@@ -37,6 +39,7 @@ function CivilianLayout({ title, children }: { title: string; children: React.Re
 
 export function PassportPage() {
   const { households, auth } = useSahayamStore()
+  const t = useT()
 
   // Find the household (defaults to Kuruvilla House or user's associated household)
   const defaultHousehold = households.find(h => h.id === auth?.associatedHouseholdId) ||
@@ -61,7 +64,12 @@ export function PassportPage() {
   }
 
   return (
-    <CivilianLayout title="Resilience Passport & QR">
+    <CivilianLayout title={t('passportTitle')}>
+      <div className="section-card" style={{ marginBottom: '16px' }}>
+        <p style={{ margin: '0 0 12px', fontSize: '13px', color: 'var(--muted)' }}>
+          {t('passportSubtitle')}
+        </p>
+      </div>
       {/* Household Selector / Info */}
       <Panel className="passport-card">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
@@ -207,6 +215,7 @@ import { useDtnMesh } from '../data/dtn'
 export function SosPage() {
   const { auth, getMemberById } = useSahayamStore()
   const { publishSos, bundles, isRelayConnected } = useDtnMesh()
+  const t = useT()
   const [selectedType, setSelectedType] = useState('Medical emergency')
   const [activeBundleId, setActiveBundleId] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -237,7 +246,7 @@ export function SosPage() {
   }
 
   return (
-    <CivilianLayout title="Emergency SOS">
+    <CivilianLayout title={t('sosTitle')}>
       {activeBundle ? (
         <div className="section-card" style={{ marginBottom: '16px' }}>
           <div className={`notice ${activeBundle.status === 'DELIVERED_COMMAND' ? 'notice--safe' : activeBundle.status === 'IN_TRANSIT' ? 'notice--warning' : 'notice--critical'}`} style={{ padding: '16px' }}>

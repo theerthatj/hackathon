@@ -1,5 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it } from 'vitest'
 import { MemoryRouter } from 'react-router-dom'
 import App from './App'
 
@@ -8,6 +8,9 @@ function renderRoute(route: string) {
 }
 
 describe('Sahayam routes', () => {
+  afterEach(() => {
+    cleanup()
+  })
   it('renders the civilian emergency workflow', () => {
     renderRoute('/civilian/sos')
     expect(screen.getByRole('heading', { name: 'Emergency SOS' })).toBeInTheDocument()
@@ -97,5 +100,20 @@ describe('Sahayam routes', () => {
 
     const invalidRes = store.login('wrong@gmail.com', 'badpass')
     expect(invalidRes.success).toBe(false)
+  })
+
+  it('toggles language between English and Malayalam', async () => {
+    const { fireEvent } = await import('@testing-library/react')
+    renderRoute('/civilian/passport')
+
+    // Initial English heading
+    expect(screen.getByRole('heading', { name: /civilian resilience passport/i })).toBeInTheDocument()
+
+    // Find language toggle button
+    const toggleBtn = screen.getByTitle(/switch to malayalam/i)
+    fireEvent.click(toggleBtn)
+
+    // Now text switches to Malayalam
+    expect(screen.getByRole('heading', { name: /ദുരന്ത അതിജീവന പാസ്പോർട്ട്/i })).toBeInTheDocument()
   })
 })

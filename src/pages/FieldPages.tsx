@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { AlertTriangle, ArrowUpRight, CheckCircle2, Clock3, HeartPulse, PackageCheck, PhoneCall, QrCode, Radio, Search, Shield, ShieldCheck, Siren, UserCheck, UserPlus, Users } from 'lucide-react'
+import { AlertTriangle, ArrowUpRight, CheckCircle2, Clock3, HeartPulse, PackageCheck, PhoneCall, QrCode, Radio, Search, ShieldCheck, Siren, UserCheck, UserPlus, Users } from 'lucide-react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { AppShell } from '../components/AppShell'
+import { QrScanner } from '../components/QrScanner'
 import { Button, Field, Panel, SelectField, StatusBadge, SyncQueue } from '../components/ui'
 import { useSahayamStore, type UserMember } from '../data/store'
 import { useDtnMesh, type ADUBundle } from '../data/dtn'
+import { useT } from '../i18n'
 
 const nav = [
   { to: '/field/scanner', label: '1. Scan QR', icon: QrCode },
@@ -14,11 +16,12 @@ const nav = [
 ]
 
 function FieldLayout({ title, children }: { title: string; children: React.ReactNode }) {
+  const t = useT()
   return (
     <AppShell>
       <main className="mobile-workspace field-workspace">
         <header className="page-heading">
-          <p className="eyebrow">Volunteers & Rescue Teams Interface</p>
+          <p className="eyebrow">{t('volunteerNav')}</p>
           <h1>{title}</h1>
         </header>
         {children}
@@ -37,6 +40,7 @@ function FieldLayout({ title, children }: { title: string; children: React.React
 
 export function ScannerPage() {
   const { members, getMemberByQr, updateMemberStatus } = useSahayamStore()
+  const t = useT()
   const [tokenInput, setTokenInput] = useState('')
   const [scannedMember, setScannedMember] = useState<UserMember | null>(() => {
     // Default show Ammini Kuruvilla as ready demonstration
@@ -62,21 +66,12 @@ export function ScannerPage() {
   }
 
   return (
-    <FieldLayout title="Scan Resilience Passport QR">
-      {/* Visual Scanner Simulation Box */}
-      <div className="scanner" style={{ marginBottom: '16px' }}>
-        <div className="scan-frame">
-          <i /><i /><i /><i />
-          <QrCode size={46} color="var(--brand)" />
-          <span style={{ fontWeight: 600 }}>Optical QR Scanner Active</span>
-          <small style={{ color: 'var(--muted)', textAlign: 'center', maxWidth: '80%' }}>
-            Point at civilian Resilience Passport QR code or select a sample below
-          </small>
-        </div>
-      </div>
+    <FieldLayout title={t('scannerTitle')}>
+      {/* Live Optical QR Scanner Hardware */}
+      <QrScanner onScan={handleScanToken} />
 
       {/* Quick Test Picker for Demo */}
-      <Panel title="Quick-Scan Registered QR Codes" eyebrow="Instant Demo Verification">
+      <Panel title={t('quickScanTitle')} eyebrow={t('instantDemoEyebrow')}>
         <p style={{ margin: '0 0 8px', fontSize: '12px', color: 'var(--muted)' }}>
           Click any user below to simulate scanning their physical QR code:
         </p>
@@ -615,7 +610,7 @@ export function RegistryPage() {
 
 export function DtnRelayPage() {
   const { auth } = useSahayamStore()
-  const { bundles, isRelayConnected, acceptCustody, uplinkToGateway, publishSos } = useDtnMesh()
+  const { bundles, isRelayConnected, acceptCustody, uplinkToGateway, publishSos, resetDemo } = useDtnMesh()
   const [filter, setFilter] = useState<'ALL' | 'PENDING' | 'IN_TRANSIT' | 'DELIVERED'>('ALL')
   const [actionNotice, setActionNotice] = useState<string | null>(null)
 
@@ -633,20 +628,28 @@ export function DtnRelayPage() {
   const carryingCount = bundles.filter(b => b.status === 'IN_TRANSIT' && b.custodian?.id === volunteerId).length
 
   const handleTakeCustody = async (bundle: ADUBundle) => {
-    await acceptCustody({
+    const res = await acceptCustody({
       bundleId: bundle.bundleId,
       custodianId: volunteerId,
       custodianName: volunteerName,
       location: 'Mundakkai North · Sector 4 Trail',
     })
+    if (!res) {
+      setActionNotice(`Warning: Custody refused for ${bundle.originName}! SHA-256 payload integrity check failed (Tampered bundle).`)
+      return
+    }
     setActionNotice(`You have acquired physical custody of ${bundle.originName}'s SOS bundle. Proceed toward Base Camp gateway.`)
   }
 
   const handleGatewayUplink = async (bundle: ADUBundle) => {
-    await uplinkToGateway({
+    const res = await uplinkToGateway({
       bundleId: bundle.bundleId,
       gatewayName: 'St. Thomas HSS Relay Gateway',
     })
+    if (!res) {
+      setActionNotice(`Warning: Gateway uplink refused for ${bundle.originName}! Tampered bundle detected.`)
+      return
+    }
     setActionNotice(`ADU Bundle for ${bundle.originName} has been successfully uplinked to DEOC Command!`)
   }
 
@@ -726,21 +729,43 @@ export function DtnRelayPage() {
           ))}
         </div>
 
-        <button
-          onClick={handleSimulateCivilianSos}
-          style={{
-            fontSize: '11px',
-            padding: '4px 10px',
-            background: 'var(--surface-2)',
-            border: '1px dashed var(--brand)',
-            borderRadius: 'var(--radius-sm)',
-            cursor: 'pointer',
-            color: 'var(--brand)',
-            fontWeight: 600,
-          }}
-        >
-          + Simulate Civilian SOS
-        </button>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button
+            onClick={() => {
+              resetDemo()
+              setActionNotice('All active and cached SOS relays cleared.')
+            }}
+            style={{
+              fontSize: '11px',
+              padding: '4px 10px',
+              background: 'var(--surface-2)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius-sm)',
+              cursor: 'pointer',
+              color: 'var(--critical)',
+              fontWeight: 600,
+            }}
+            title="Clear all stored and relayed SOS bundles"
+          >
+            Clear All Relays
+          </button>
+
+          <button
+            onClick={handleSimulateCivilianSos}
+            style={{
+              fontSize: '11px',
+              padding: '4px 10px',
+              background: 'var(--surface-2)',
+              border: '1px dashed var(--brand)',
+              borderRadius: 'var(--radius-sm)',
+              cursor: 'pointer',
+              color: 'var(--brand)',
+              fontWeight: 600,
+            }}
+          >
+            + Simulate Civilian SOS
+          </button>
+        </div>
       </div>
 
       {/* Incoming SOS Beacons List */}
@@ -808,9 +833,19 @@ export function DtnRelayPage() {
 
                 {/* Custody Chain Details */}
                 <div style={{ fontSize: '11px', color: 'var(--muted)', marginBottom: '12px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
-                    <Shield size={12} color="var(--safe)" />
-                    <span>ADU Bundle: <code>{bundle.bundleId}</code> (SHA-256 verified)</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
+                    {bundle.tampered ? (
+                      <span className="status status--critical" style={{ fontSize: '10px', display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '2px 6px' }}>
+                        <AlertTriangle size={11} />
+                        Tampered (SHA-256 Mismatch)
+                      </span>
+                    ) : (
+                      <span className="status status--safe" style={{ fontSize: '10px', display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '2px 6px' }}>
+                        <ShieldCheck size={11} />
+                        Verified SHA-256
+                      </span>
+                    )}
+                    <span>ADU Bundle: <code>{bundle.bundleId}</code></span>
                   </div>
                   {bundle.custodian && (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -822,33 +857,42 @@ export function DtnRelayPage() {
 
                 {/* Custody Action Handshake Buttons */}
                 <div style={{ display: 'flex', gap: '8px' }}>
-                  {isPending && (
-                    <button
-                      onClick={() => handleTakeCustody(bundle)}
-                      className="button button--primary"
-                      style={{ flex: 1, padding: '9px 12px', fontSize: '13px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}
-                    >
-                      <Radio size={16} />
-                      Take Courier Custody (Handshake)
-                    </button>
-                  )}
-
-                  {inMyCustody && (
-                    <button
-                      onClick={() => handleGatewayUplink(bundle)}
-                      className="button button--primary"
-                      style={{ flex: 1, padding: '9px 12px', fontSize: '13px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', background: 'var(--safe)', borderColor: 'var(--safe)' }}
-                    >
-                      <ArrowUpRight size={16} />
-                      Uplink to DEOC Gateway (Deliver)
-                    </button>
-                  )}
-
-                  {isDelivered && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--safe)', fontSize: '12px', fontWeight: 600 }}>
-                      <CheckCircle2 size={16} />
-                      Delivered to DEOC Command · Confirmed
+                  {bundle.tampered ? (
+                    <div className="notice notice--critical" style={{ width: '100%', padding: '8px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <AlertTriangle size={14} />
+                      <span>Cryptographic payload hash verification failed — custody rejected.</span>
                     </div>
+                  ) : (
+                    <>
+                      {isPending && (
+                        <button
+                          onClick={() => handleTakeCustody(bundle)}
+                          className="button button--primary"
+                          style={{ flex: 1, padding: '9px 12px', fontSize: '13px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}
+                        >
+                          <Radio size={16} />
+                          Take Courier Custody (Handshake)
+                        </button>
+                      )}
+
+                      {inMyCustody && (
+                        <button
+                          onClick={() => handleGatewayUplink(bundle)}
+                          className="button button--primary"
+                          style={{ flex: 1, padding: '9px 12px', fontSize: '13px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', background: 'var(--safe)', borderColor: 'var(--safe)' }}
+                        >
+                          <ArrowUpRight size={16} />
+                          Uplink to DEOC Gateway (Deliver)
+                        </button>
+                      )}
+
+                      {isDelivered && (
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--safe)', fontSize: '12px', fontWeight: 600 }}>
+                          <CheckCircle2 size={16} />
+                          Delivered to DEOC Command · Confirmed
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>

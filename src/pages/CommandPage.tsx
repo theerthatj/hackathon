@@ -1,9 +1,10 @@
-import { useCallback, useMemo, useState } from 'react'
-import { Activity, AlertTriangle, ArrowUpRight, CheckCircle2, Clock3, Layers3, Map, Radio, ShieldAlert, ShieldCheck, Siren, Sparkles, Truck, Users } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Activity, AlertTriangle, ArrowUpRight, CheckCircle2, Clock3, Database, Layers3, Map, Radio, ShieldAlert, ShieldCheck, Siren, Sparkles, Trash2, Truck, Users } from 'lucide-react'
 import { AppShell } from '../components/AppShell'
 import { SilenceMap } from '../components/SilenceMap'
 import { Button, Panel, StatusBadge } from '../components/ui'
 import { useDtnMesh } from '../data/dtn'
+import { isApiEnabled, apiGetScores } from '../api/client'
 import {
   activity,
   geographicSilenceData,
@@ -19,13 +20,44 @@ function scoreSeverity(score: number): Severity {
 }
 
 export function CommandPage() {
-  const { bundles, isRelayConnected, publishSos } = useDtnMesh()
+  const { bundles, isRelayConnected, publishSos, resetDemo } = useDtnMesh()
   const [activeScenario, setActiveScenario] = useState<string>('severe_silence')
   const [selectedCell, setSelectedCell] = useState(() => silenceCells.find(cell => cell.id === 'WYD-07C') ?? silenceCells[0])
   const selectCell = useCallback((cell: SilenceCell) => setSelectedCell(cell), [])
 
   const [focusNonce, setFocusNonce] = useState(0)
   const [focusTargetName, setFocusTargetName] = useState<string | undefined>()
+
+  const [liveScores, setLiveScores] = useState<Record<string, number> | null>(null)
+  const [isBackendConnected, setIsBackendConnected] = useState(false)
+
+  useEffect(() => {
+    if (!isApiEnabled()) return
+    let active = true
+    apiGetScores(activeScenario)
+      .then(scores => {
+        if (!active) return
+        const map: Record<string, number> = {}
+        for (const s of scores) {
+          map[s.cellId] = s.scorePct
+        }
+        setLiveScores(map)
+        setIsBackendConnected(true)
+      })
+      .catch(() => {
+        if (active) setIsBackendConnected(false)
+      })
+    return () => {
+      active = false
+    }
+  }, [activeScenario])
+
+  const getCellScore = useCallback((c: SilenceCell): number => {
+    if (liveScores && liveScores[c.id] !== undefined) {
+      return liveScores[c.id]
+    }
+    return c.scoresByScenario?.[activeScenario] ?? c.score
+  }, [liveScores, activeScenario])
 
   const handleFocusCell = useCallback((cellId: string, originName?: string) => {
     const targetCell = silenceCells.find(c => c.id === cellId || c.cell_code === cellId)
@@ -43,20 +75,20 @@ export function CommandPage() {
   const latestSos = bundles[0]
 
   // Live score for selected cell in the active disaster scenario
-  const currentScore = selectedCell.scoresByScenario?.[activeScenario] ?? selectedCell.score
+  const currentScore = getCellScore(selectedCell)
   const severity = scoreSeverity(currentScore)
 
   // Dynamic ranking of top silent zones for this scenario
   const scenarioSilentZones: SilentZone[] = useMemo(() => {
     return [...silenceCells]
       .sort((a, b) => {
-        const scoreB = b.scoresByScenario?.[activeScenario] ?? b.score
-        const scoreA = a.scoresByScenario?.[activeScenario] ?? a.score
+        const scoreB = getCellScore(b)
+        const scoreA = getCellScore(a)
         return scoreB - scoreA
       })
       .slice(0, 6)
       .map(c => {
-        const score = c.scoresByScenario?.[activeScenario] ?? c.score
+        const score = getCellScore(c)
         return {
           id: c.id,
           place: c.place,
@@ -69,18 +101,18 @@ export function CommandPage() {
           longitude: c.longitude,
         }
       })
-  }, [activeScenario])
+  }, [activeScenario, getCellScore])
 
   // Count critical cells for current scenario
   const criticalCount = useMemo(() => {
-    return silenceCells.filter(c => (c.scoresByScenario?.[activeScenario] ?? c.score) >= 85).length
-  }, [activeScenario])
+    return silenceCells.filter(c => getCellScore(c) >= 85).length
+  }, [activeScenario, getCellScore])
 
   const atRiskPopulation = useMemo(() => {
     return silenceCells
-      .filter(c => (c.scoresByScenario?.[activeScenario] ?? c.score) >= 65)
+      .filter(c => getCellScore(c) >= 65)
       .reduce((sum, c) => sum + c.population, 0)
-  }, [activeScenario])
+  }, [activeScenario, getCellScore])
 
   // Signal breakdown details for selected cell
   const breakdown = selectedCell.breakdownsByScenario?.[activeScenario]
@@ -90,7 +122,18 @@ export function CommandPage() {
       <main className="command-workspace">
         <header className="command-heading">
           <div>
-            <h1>Operational overview</h1>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <h1>Operational overview</h1>
+              {isBackendConnected ? (
+                <span className="status-badge status-badge--safe" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px' }}>
+                  <Database size={12} /> PostGIS Live
+                </span>
+              ) : (
+                <span className="status-badge status-badge--neutral" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '11px' }}>
+                  <Database size={12} /> Offline Cache
+                </span>
+              )}
+            </div>
             <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--muted)' }}>
               100 Geographic Sectors · Real-time Silence Telemetry · Kerala Disaster Network
             </p>
@@ -140,6 +183,13 @@ export function CommandPage() {
                   icon={<Map size={16} />}
                 >
                   Locate Cell ({latestSos.cellId})
+                </Button>
+                <Button
+                  variant="quiet"
+                  onClick={() => resetDemo()}
+                  icon={<Trash2 size={16} />}
+                >
+                  Dismiss Alert
                 </Button>
               </div>
             </div>

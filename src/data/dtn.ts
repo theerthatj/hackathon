@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react'
+import { hashBundlePayload } from './canonical'
 
 export interface CustodyReceipt {
   custodianId: string
@@ -22,12 +23,15 @@ export interface ADUBundle {
   medication?: string
   isBedridden?: boolean
   priority: 'P0_CRITICAL' | 'P1_HIGH' | 'P2_ROUTINE'
-  encryptedHash: string
+  integrityHash: string
+  encryptedHash?: string
+  hashAlgo?: string
   status: 'PENDING_LOCAL' | 'IN_TRANSIT' | 'DELIVERED_COMMAND'
   createdAt: string
   custodian?: { id: string; name: string; location: string }
   custodyReceipts: CustodyReceipt[]
   deliveredAt?: string
+  tampered?: boolean
 }
 
 const STORAGE_KEY_DTN = 'sahayam_dtn_bundles_v2'
@@ -62,6 +66,8 @@ class DtnStore {
   private broadcastChannel: BroadcastChannel | null = null
   private eventSource: EventSource | null = null
   private connectedToRelay = false
+  private reconnectTimeout: ReturnType<typeof setTimeout> | null = null
+  private reconnectAttempts = 0
 
   constructor() {
     this.init()
@@ -89,6 +95,12 @@ class DtnStore {
         this.broadcastChannel = new BroadcastChannel('sahayam_dtn_mesh')
         this.broadcastChannel.onmessage = (event) => {
           const { type, bundle } = event.data || {}
+          if (type === 'DEMO_RESET' || type === 'CLEAR_BUNDLES') {
+            this.bundles = []
+            this.saveLocally()
+            this.notify()
+            return
+          }
           if (bundle) {
             this.upsertBundle(bundle, false)
             if (type === 'NEW_SOS') {
@@ -112,14 +124,28 @@ class DtnStore {
     if (typeof window === 'undefined' || !window.EventSource) return
 
     try {
+      if (this.eventSource) {
+        this.eventSource.close()
+      }
+
       this.eventSource = new EventSource('/api/dtn/events')
 
-      this.eventSource.addEventListener('init', (e: MessageEvent) => {
+      this.eventSource.addEventListener('init', async (e: MessageEvent) => {
         this.connectedToRelay = true
+        this.reconnectAttempts = 0
         try {
           const serverBundles = JSON.parse(e.data) as ADUBundle[]
-          if (Array.isArray(serverBundles) && serverBundles.length > 0) {
-            serverBundles.forEach(b => this.upsertBundle(b, false))
+          if (Array.isArray(serverBundles)) {
+            if (serverBundles.length === 0) {
+              this.bundles = []
+              this.saveLocally()
+            } else {
+              for (const b of serverBundles) {
+                const valid = await this.verifyBundle(b as unknown as Record<string, unknown>)
+                if (!valid) b.tampered = true
+                this.upsertBundle(b, false)
+              }
+            }
           }
         } catch {
           // ignore parse error
@@ -127,9 +153,11 @@ class DtnStore {
         this.notify()
       })
 
-      this.eventSource.addEventListener('new_bundle', (e: MessageEvent) => {
+      this.eventSource.addEventListener('new_bundle', async (e: MessageEvent) => {
         try {
           const bundle = JSON.parse(e.data) as ADUBundle
+          const valid = await this.verifyBundle(bundle as unknown as Record<string, unknown>)
+          if (!valid) bundle.tampered = true
           this.upsertBundle(bundle, true)
           playEmergencyChime()
         } catch {
@@ -137,9 +165,11 @@ class DtnStore {
         }
       })
 
-      this.eventSource.addEventListener('custody_updated', (e: MessageEvent) => {
+      this.eventSource.addEventListener('custody_updated', async (e: MessageEvent) => {
         try {
           const bundle = JSON.parse(e.data) as ADUBundle
+          const valid = await this.verifyBundle(bundle as unknown as Record<string, unknown>)
+          if (!valid) bundle.tampered = true
           this.upsertBundle(bundle, true)
           playEmergencyChime()
         } catch {
@@ -147,9 +177,11 @@ class DtnStore {
         }
       })
 
-      this.eventSource.addEventListener('bundle_delivered', (e: MessageEvent) => {
+      this.eventSource.addEventListener('bundle_delivered', async (e: MessageEvent) => {
         try {
           const bundle = JSON.parse(e.data) as ADUBundle
+          const valid = await this.verifyBundle(bundle as unknown as Record<string, unknown>)
+          if (!valid) bundle.tampered = true
           this.upsertBundle(bundle, true)
           playEmergencyChime()
         } catch {
@@ -160,10 +192,24 @@ class DtnStore {
       this.eventSource.onerror = () => {
         this.connectedToRelay = false
         this.notify()
+        this.scheduleReconnect()
       }
     } catch {
       this.connectedToRelay = false
+      this.scheduleReconnect()
     }
+  }
+
+  private scheduleReconnect() {
+    if (this.reconnectTimeout) return
+    this.reconnectAttempts++
+    const delay = Math.min(1000 * Math.pow(1.5, this.reconnectAttempts), 10_000)
+    this.reconnectTimeout = setTimeout(() => {
+      this.reconnectTimeout = null
+      if (!this.connectedToRelay) {
+        this.connectSse()
+      }
+    }, delay)
   }
 
   private async fetchServerBundles() {
@@ -172,12 +218,23 @@ class DtnStore {
       if (res.ok) {
         const data = await res.json()
         if (Array.isArray(data) && data.length > 0) {
-          data.forEach(b => this.upsertBundle(b, false))
+          for (const b of data) {
+            const valid = await this.verifyBundle(b)
+            if (!valid) b.tampered = true
+            this.upsertBundle(b, false)
+          }
         }
       }
     } catch {
       // server relay might be offline, relies on local storage & broadcast channel
     }
+  }
+
+  public async verifyBundle(bundle: Record<string, unknown>): Promise<boolean> {
+    const hash = (bundle.integrityHash || bundle.encryptedHash) as string | undefined
+    if (!hash || typeof hash !== 'string') return false
+    const computed = await hashBundlePayload(bundle)
+    return hash.toLowerCase() === computed.toLowerCase()
   }
 
   private upsertBundle(bundle: ADUBundle, shouldSave = true) {
@@ -243,10 +300,7 @@ class DtnStore {
     const now = new Date().toISOString()
     const bundleId = `adu-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`
 
-    // Mock sha256 encrypted payload hash
-    const encryptedHash = Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')
-
-    const newBundle: ADUBundle = {
+    const preliminaryBundle: ADUBundle = {
       bundleId,
       originNodeId: params.originNodeId,
       originName: params.originName,
@@ -262,7 +316,8 @@ class DtnStore {
       priority: params.isBedridden || params.emergencyType.toLowerCase().includes('medical') || params.emergencyType.toLowerCase().includes('trapped')
         ? 'P0_CRITICAL'
         : 'P1_HIGH',
-      encryptedHash,
+      integrityHash: '',
+      hashAlgo: 'SHA-256',
       status: 'PENDING_LOCAL',
       createdAt: now,
       custodyReceipts: [
@@ -274,6 +329,13 @@ class DtnStore {
           action: 'CREATED',
         },
       ],
+    }
+
+    const calculatedHash = await hashBundlePayload(preliminaryBundle as unknown as Record<string, unknown>)
+    const newBundle: ADUBundle = {
+      ...preliminaryBundle,
+      integrityHash: calculatedHash,
+      encryptedHash: calculatedHash,
     }
 
     this.upsertBundle(newBundle, true)
@@ -305,6 +367,15 @@ class DtnStore {
   }): Promise<ADUBundle | undefined> {
     const bundle = this.bundles.find(b => b.bundleId === params.bundleId)
     if (!bundle) return undefined
+
+    // Verify bundle integrity prior to accepting physical custody
+    const isValid = await this.verifyBundle(bundle as unknown as Record<string, unknown>)
+    if (!isValid) {
+      bundle.tampered = true
+      this.saveLocally()
+      this.notify()
+      return undefined
+    }
 
     const now = new Date().toISOString()
     bundle.status = 'IN_TRANSIT'
@@ -350,6 +421,15 @@ class DtnStore {
     const bundle = this.bundles.find(b => b.bundleId === params.bundleId)
     if (!bundle) return undefined
 
+    // Verify bundle integrity prior to uplink delivery
+    const isValid = await this.verifyBundle(bundle as unknown as Record<string, unknown>)
+    if (!isValid) {
+      bundle.tampered = true
+      this.saveLocally()
+      this.notify()
+      return undefined
+    }
+
     const now = new Date().toISOString()
     bundle.status = 'DELIVERED_COMMAND'
     bundle.deliveredAt = now
@@ -380,11 +460,26 @@ class DtnStore {
     return bundle
   }
 
-  // Clear or reset demo data
+  // Clear or reset demo data across local storage, tabs, and server
   public resetDemo() {
-    this.bundles = SEED_BUNDLES
+    this.bundles = []
     this.saveLocally()
     this.notify()
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(STORAGE_KEY_DTN, '[]')
+        localStorage.removeItem('sahayam_dtn_bundles')
+        localStorage.removeItem('sahayam_dtn_bundles_v1')
+      } catch {
+        // ignore localStorage error
+      }
+      this.broadcastChannel?.postMessage({ type: 'DEMO_RESET' })
+      fetch('/api/dtn/bundles', { method: 'DELETE' }).catch(() => {})
+      const apiUrl = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) ? import.meta.env.VITE_API_URL.replace(/\/+$/, '') : ''
+      if (apiUrl) {
+        fetch(`${apiUrl}/api/dtn/bundles`, { method: 'DELETE' }).catch(() => {})
+      }
+    }
   }
 }
 
@@ -414,6 +509,7 @@ export function useDtnMesh() {
     publishSos: dtnStore.publishSos.bind(dtnStore),
     acceptCustody: dtnStore.acceptCustody.bind(dtnStore),
     uplinkToGateway: dtnStore.uplinkToGateway.bind(dtnStore),
+    verifyBundle: dtnStore.verifyBundle.bind(dtnStore),
     resetDemo: dtnStore.resetDemo.bind(dtnStore),
   }
 }

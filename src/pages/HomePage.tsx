@@ -96,11 +96,6 @@ export function HomePage() {
             </div>
             <p className="eyebrow">Interface 1</p>
             <h2>1. Users</h2>
-            <p>
-              Civilians and household members access their personal <strong>Resilience Passport</strong>, view their generated
-              <strong> QR code</strong> (encoding offline medical & vulnerability tokens), review family members (e.g. Kuruvilla House),
-              and navigate hazard-safe evacuation routes.
-            </p>
             <div className="portal-card__creds">
               Login: <strong>user@gmail.com</strong> / <strong>user</strong>
             </div>
@@ -120,10 +115,6 @@ export function HomePage() {
             </div>
             <p className="eyebrow">Interface 2</p>
             <h2>2. Volunteers / Rescue Team</h2>
-            <p>
-              Register households and residents grouped by house name (e.g. <strong>Kuruvilla House</strong>).
-              Scan civilian QR codes to immediately receive entered medical conditions, dosages, and vulnerability needs, and manage camp intake.
-            </p>
             <div className="portal-card__creds">
               Login: <strong>volunteer@gmail.com</strong> / <strong>volunteer</strong>
             </div>
@@ -144,10 +135,6 @@ export function HomePage() {
             </div>
             <p className="eyebrow">Interface 3</p>
             <h2>3. Admin</h2>
-            <p>
-              Incident leadership and DEOC command. Inspect the 500m Wayanad silence anomaly heatmap, review mathematical
-              evidence for dark zones like Mundakkai, track field units, and dispatch rescue teams with uncertainty-aware scores.
-            </p>
             <div className="portal-card__creds">
               Login: <strong>admin@gmail.com</strong> / <strong>admin</strong>
             </div>

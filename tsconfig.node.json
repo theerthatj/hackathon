@@ -1,9 +1,18 @@
 {
   "compilerOptions": {
     "composite": true,
+    "target": "ES2022",
+    "lib": ["ES2022"],
     "skipLibCheck": true,
     "module": "ESNext",
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+    "noEmit": true
   },
-  "include": ["vite.config.ts", "vitest.config.ts", "eslint.config.js"]
+  "include": [
+    "vite.config.ts",
+    "vitest.config.ts",
+    "eslint.config.js",
+    "vite-plugins",
+    "src/data/canonical.ts"
+  ]
 }

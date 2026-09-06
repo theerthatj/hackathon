@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#073b33" />
+      <stop offset="100%" stop-color="#021c18" />
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00e5a3" />
+      <stop offset="100%" stop-color="#0b8457" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded rect -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+
+  <!-- Outer Radar Pulse Rings -->
+  <circle cx="256" cy="240" r="180" fill="none" stroke="#00e5a3" stroke-width="3" opacity="0.2" stroke-dasharray="8 8" />
+  <circle cx="256" cy="240" r="130" fill="none" stroke="#00e5a3" stroke-width="4" opacity="0.35" />
+
+  <!-- Central Shield / Beacon -->
+  <path d="M256 100 L360 150 C360 260 256 340 256 340 C256 340 152 260 152 150 Z"
+        fill="url(#shieldGrad)" filter="url(#glow)" />
+
+  <!-- Inner Signal Beacon Waves -->
+  <path d="M256 160 C230 160 210 180 210 206" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" />
+  <path d="M256 160 C282 160 302 180 302 206" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" />
+  <circle cx="256" cy="226" r="14" fill="#ffffff" />
+
+  <!-- Life-line / Vitality Pulse across bottom -->
+  <path d="M120 400 L200 400 L225 365 L255 435 L285 385 L310 400 L392 400"
+        fill="none" stroke="#00e5a3" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
